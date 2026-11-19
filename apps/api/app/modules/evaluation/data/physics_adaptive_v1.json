@@ -1,0 +1,1664 @@
+{
+  "id": "physics-tutor-candidates",
+  "version": "1.1.0",
+  "description": "Twenty-nine unvalidated candidates: unchanged baseline cases plus five advanced adaptive-explanation cases, with explicitly synthetic source fixtures. Not a gold standard and not measured model-quality evidence.",
+  "sources": [
+    {
+      "id": "mechanics_notes",
+      "title": "Synthetic Mechanics Notes - UNVALIDATED",
+      "source_type": "lecture_notes",
+      "pages": [
+        "SYNTHETIC UNVALIDATED FIXTURE: harmonic oscillator.\nAssume m>0 and k>0 are constant, no damping, one inertial coordinate x.\nNewton equation: m*x''+k*x=0. The angular frequency is omega=sqrt(k/m).\nWith x(0)=x0 and x'(0)=v0:\nx(t)=x0*cos(omega*t)+(v0/omega)*sin(omega*t).\nEnergy E=m*x'(t)^2/2+k*x(t)^2/2 is constant under these assumptions.\nSI units: m in kg, k in N/m, x in m, energy in J.\nFor k->0+ at fixed finite t the motion tends to x0+v0*t.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: central force and angular momentum.\nFor r!=0, a force parallel to r has zero torque about its fixed centre.\nL=r cross (m*r_dot), and dL/dt=r cross F=0 for constant mass m.\nAngular momentum conservation alone does not imply energy conservation.\nOnly a time-independent conservative central potential U(r) gives\nE=m*r_dot_radial^2/2+U(r)+L^2/(2*m*r^2).\nFor L!=0 motion lies in a fixed plane perpendicular to L.\nFor L=0 this normal direction is not defined.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: pendulum and small-angle limit.\nFor a point mass m on a rigid massless rod of length l, let theta=0 be downward.\nWith fixed pivot, no friction and g>0, L=m*l^2*theta_dot^2/2+m*g*l*cos(theta).\nEuler-Lagrange gives theta_ddot+(g/l)*sin(theta)=0.\nFor genuinely small oscillation amplitude, omega0=sqrt(g/l).\nSmall initial angle alone is insufficient if the initial angular speed is large.\nFinite-amplitude librations have a longer period; the period diverges at the separatrix.\nInitial angle and initial angular velocity are both needed for a motion.\n"
+      ],
+      "rights_status": "synthetic",
+      "external_use_allowed": true,
+      "physical_review": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      }
+    },
+    {
+      "id": "em_notes",
+      "title": "Synthetic Electromagnetism Notes - UNVALIDATED",
+      "source_type": "lecture_notes",
+      "pages": [
+        "SYNTHETIC UNVALIDATED FIXTURE: Gauss law and electrostatics.\nGauss law: integral E dot dA = Q_enclosed/epsilon0.\nThe surface integral is over a closed oriented surface.\nZero enclosed net charge gives zero net flux, not necessarily zero field.\nInferring a local field from Gauss law needs enough symmetry or more data.\nFor an ideal vacuum parallel-plate capacitor, C=epsilon0*A/d.\nAt fixed charge Q, U=Q^2/(2*C); at fixed voltage V, U=C*V^2/2.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: source-free vacuum plane wave.\nAssume homogeneous vacuum, constant epsilon0,mu0 and real wavevector k.\nFor E=E0*cos(k dot r-omega*t), k dot E0=0 and B0=(k cross E0)/omega.\nThe dispersion relation is omega^2=c^2*|k|^2 with c=1/sqrt(epsilon0*mu0).\nThe amplitude magnitudes obey |B0|=|E0|/c.\nThe time-average Poynting flux is epsilon0*c*|E0|^2*k_hat/2.\nB is not H: H=B/mu0 in this vacuum convention.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: electrostatic Dirichlet slab.\nFor 0<x<L and constant epsilon>0, -phi''=rho(x)/epsilon.\nBoundary values are phi(0)=Va and phi(L)=Vb; rho is continuous.\nThe zero-boundary kernel is G(x,xi)=min(x,xi)*(L-max(x,xi))/L.\nG is continuous and G_x(xi+)-G_x(xi-)=-1.\nphi=Va*(1-x/L)+Vb*x/L+integral_0^L G(x,xi)*rho(xi)/epsilon dxi.\nFor constant rho0, the source term is rho0*x*(L-x)/(2*epsilon).\nThe field is E=-phi'; fixed Dirichlet values remove the homogeneous ambiguity.\n"
+      ],
+      "rights_status": "synthetic",
+      "external_use_allowed": true,
+      "physical_review": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      }
+    },
+    {
+      "id": "qm_notes",
+      "title": "Synthetic Quantum Mechanics Notes - UNVALIDATED",
+      "source_type": "lecture_notes",
+      "pages": [
+        "SYNTHETIC UNVALIDATED FIXTURE: infinite well and interference.\nOn 0<x<L with infinite walls, phi_n=sqrt(2/L)*sin(n*pi*x/L), n>=1.\nThe energy is E_n=n^2*pi^2*hbar^2/(2*m*L^2), for m>0 and L>0.\nOrthogonal states satisfy integral conjugate(phi_n)*phi_m dx=delta_nm.\nA normalized coherent sum has interference terms in its position density.\nA statistical mixture is described differently and has no such coherence term.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: free Gaussian packet.\nInitial psi=(2*pi*sigma0^2)^(-1/4)*exp(-(x-x0)^2/(4*sigma0^2)\n+i*p0*(x-x0)/hbar), with sigma0>0 and m,hbar>0.\nHere sigma0 is the standard deviation of the initial probability density.\nFor free motion, <x>=x0+p0*t/m and Delta p=hbar/(2*sigma0).\nVar(x)=sigma0^2*(1+(hbar*t/(2*m*sigma0^2))^2).\nDelta x*Delta p exceeds hbar/2 for nonzero t at finite positive parameters.\nA global phase does not affect probabilities; a spatial phase can affect momentum.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: canonical commutator and domains.\nOn Schwartz functions on R, X*psi=x*psi and P*psi=-i*hbar*psi'.\nThe product rule gives (X*P-P*X)*psi=i*hbar*psi on this common invariant domain.\nUnbounded operator products are not defined on every L2 wavefunction.\nOn a finite interval, multiplication by x need not preserve momentum boundary values.\nThe usual uncertainty lower bound requires the appropriate state and domain hypotheses.\nA formal differential expression alone does not establish every operator identity.\n"
+      ],
+      "rights_status": "synthetic",
+      "external_use_allowed": true,
+      "physical_review": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      }
+    },
+    {
+      "id": "thermo_notes",
+      "title": "Synthetic Thermodynamics Notes - UNVALIDATED",
+      "source_type": "lecture_notes",
+      "pages": [
+        "SYNTHETIC UNVALIDATED FIXTURE: reversible ideal-gas expansion.\nFor n moles of a classical ideal gas at constant T>0:\np=n*R*T/V, W_by_gas=n*R*T*ln(V2/V1).\nWith the convention Delta U=Q-W_by_gas, an isothermal ideal gas has Delta U=0.\nTherefore Q=W_by_gas and Delta S_gas=n*R*ln(V2/V1).\nFor reversible contact the reservoir entropy change cancels the gas change.\nR has units J/(mol*K), and the logarithm requires a dimensionless ratio.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: entropy and validity limits.\nFor an isolated thermodynamic system, Delta S_total>=0.\nEquality describes a reversible idealization; a subsystem can lose entropy.\nClassical dilute-gas formulas require nondegeneracy: number_density*lambda_T^3<<1.\nlambda_T=sqrt(2*pi*hbar^2/(m*k_B*T)) for a particle of mass m.\nAt fixed positive density this condition fails as T approaches zero.\nA classical ideal-gas entropy formula cannot establish the low-temperature limit.\n"
+      ],
+      "rights_status": "synthetic",
+      "external_use_allowed": true,
+      "physical_review": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      }
+    },
+    {
+      "id": "methods_notes",
+      "title": "Synthetic Mathematical Methods - UNVALIDATED",
+      "source_type": "lecture_notes",
+      "pages": [
+        "SYNTHETIC UNVALIDATED FIXTURE: Dirichlet Green function.\nConsider -u''(x)=f(x) on 0<x<L, L>0, u(0)=u(L)=0, with continuous f.\nThe candidate kernel is G(x,xi)=min(x,xi)*(L-max(x,xi))/L.\nIt is continuous at x=xi; the jump G_x(xi+)-G_x(xi-) equals -1.\nThus -d_x^2 G=delta(x-xi) in the distribution sense.\nu(x)=integral_0^L G(x,xi)*f(xi) dxi satisfies the stated boundary problem.\nThe homogeneous Dirichlet problem has only the zero solution.\nIf x is in m and f has units [u]/m^2, G has units m.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: sine basis.\nOn (0,L), integral sin(n*pi*x/L)*sin(m*pi*x/L) dx = L*delta_nm/2.\nFor f in L2(0,L), b_n=(2/L)*integral f(x)*sin(n*pi*x/L) dx.\nThe sine series represents f in the L2 sense, not necessarily pointwise everywhere.\nParseval: integral |f|^2 dx = (L/2)*sum |b_n|^2.\nThe extension is odd; endpoint and discontinuity behavior need separate care.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: Euler-Lagrange variation.\nLet S[q]=integral_a^b L(t,q,q_dot) dt for a smooth scalar trajectory.\nEndpoints and endpoint times are fixed; variations eta obey eta(a)=eta(b)=0.\nThe first variation is integral (L_q*eta+L_qdot*eta_dot) dt.\nIntegration by parts gives the endpoint term [L_qdot*eta]_a^b=0.\nThe fundamental lemma then gives d/dt(L_qdot)-L_q=0.\nStationarity is necessary and does not by itself prove a minimum.\nFor L=m*q_dot^2/2-V(q), this yields m*q_ddot+V'(q)=0.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: Fourier heat equation on R.\nLet D>0 and f be Schwartz; solve u_t=D*u_xx for t>=0 with u(x,0)=f(x).\nUse f_hat(k)=integral_R exp(-i*k*x)*f(x) dx and inverse factor 1/(2*pi).\nThen u_hat(k,t)=exp(-D*k^2*t)*f_hat(k).\nFor t>0, K_t(z)=exp(-z^2/(4*D*t))/sqrt(4*pi*D*t), and u=K_t*f.\nThe kernel integrates to one and approaches delta as t approaches zero from above.\nFor integrable initial data the spatial integral is conserved.\nThese statements concern forward diffusion, not a stable backward evolution.\n"
+      ],
+      "rights_status": "synthetic",
+      "external_use_allowed": true,
+      "physical_review": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      }
+    },
+    {
+      "id": "exam_sheet",
+      "title": "Synthetic Exam Sheet - NOT AN ACTUAL EXAM",
+      "source_type": "past_exam",
+      "pages": [
+        "SYNTHETIC UNVALIDATED EXAM FIXTURE. No university or examiner is implied.\nAufgabe 1\nA harmonic oscillator has m=2 kg, k=8 N/m, x(0)=0.1 m, v(0)=0.2 m/s.\nFind angular frequency and total energy. State the undamped linear model.\n",
+        "SYNTHETIC UNVALIDATED EXAM FIXTURE.\nAufgabe 2\nAn isolated ideal vacuum capacitor has fixed charge Q, plate area A and gap d.\nThe gap is increased quasistatically to 2*d; neglect fringing in both configurations.\nCompare capacitance, electric field, voltage and stored field energy.\n",
+        "SYNTHETIC UNVALIDATED EXAM FIXTURE.\nAufgabe 3\nA particle of mass m is in a one-dimensional infinite well of width L.\nFind the energy difference E_2-E_1 and the corresponding photon frequency nu.\nUse h=2*pi*hbar and distinguish frequency nu from angular frequency omega.\n",
+        "SYNTHETIC UNVALIDATED EXAM FIXTURE.\nAufgabe 4\nOne considers n moles of an ideal gas at temperature T in a reversible expansion.\nThe volume changes from V1 to 2*V1 while T is fixed.\nUsing Delta U=Q-W_by_gas, give work, heat and entropy changes.\n"
+      ],
+      "rights_status": "synthetic",
+      "external_use_allowed": true,
+      "physical_review": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      }
+    },
+    {
+      "id": "tutorial_sheet",
+      "title": "Synthetic First-Interaction Hints - UNVALIDATED",
+      "source_type": "exercise_sheet",
+      "pages": [
+        "SYNTHETIC UNVALIDATED TUTORIAL FIXTURE.\nAufgabe 1\nLearner trial: m*x''=+k*x for a restoring spring with U(x)=k*x^2/2.\nFirst hint only: compare the direction of the restoring force with displacement.\nUse F=-dU/dx; do not solve the complete motion unless requested.\n",
+        "SYNTHETIC UNVALIDATED TUTORIAL FIXTURE.\nAufgabe 2\nBefore choosing capacitor energy variables, ask whether a battery remains connected.\nA disconnected capacitor keeps charge Q fixed, not voltage V.\nFirst-interaction evaluation does not measure long-term learning.\n",
+        "SYNTHETIC UNVALIDATED TUTORIAL FIXTURE.\nAufgabe 3\nA learner treats exp(-x^2/(4*sigma^2)) as a probability density.\nAsk first how the density is obtained from the complex amplitude psi.\nCompare |psi|^2 with the stated amplitude before identifying a variance.\n",
+        "SYNTHETIC UNVALIDATED TUTORIAL FIXTURE.\nAufgabe 4\nFor a Dirichlet problem on (0,L), the trial kernel is min(x,xi).\nAsk what this trial gives at x=L for 0<xi<L before proposing a corrected kernel.\nA delta-function jump alone does not impose all boundary conditions.\n"
+      ],
+      "rights_status": "synthetic",
+      "external_use_allowed": true,
+      "physical_review": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      }
+    },
+    {
+      "id": "source_limits",
+      "title": "Synthetic Source Conventions And Gaps - UNVALIDATED",
+      "source_type": "lecture_notes",
+      "pages": [
+        "SYNTHETIC UNVALIDATED FIXTURE: an alternative Gaussian convention.\nLet psi_a(x)=C*exp(-(x-x0)^2/(2*a^2)), with a>0.\nThe corresponding density is proportional to exp(-(x-x0)^2/a^2).\nIts variance is a^2/2; this a is not the sigma0 density width used in qm_notes.\nTwo different width symbols are not a physical contradiction by themselves.\n",
+        "SYNTHETIC UNVALIDATED FIXTURE: deliberately incomplete source.\nThe delta distribution satisfies integral delta(x-xi)*g(x) dx=g(xi)\nfor an appropriate test function and integration domain containing xi.\nNo boundary conditions for a Green function are specified on this page.\nThis page alone does not determine a unique inverse boundary-value operator.\n"
+      ],
+      "rights_status": "synthetic",
+      "external_use_allowed": true,
+      "physical_review": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "DER_OSCILLATOR",
+      "category": "derivation",
+      "topic": "Mechanik: harmonischer Oszillator",
+      "difficulty": "intermediate",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Leite für m>0 und k>0 bei F=-kx die Bewegung mit x(0)=x0 und v(0)=v0 her. Begründe Anfangswerte, Einheiten und Energieerhaltung.",
+      "prerequisites": [
+        "Newtonsche Mechanik im Inertialsystem",
+        "Lineare Differentialgleichungen zweiter Ordnung",
+        "Ableitung trigonometrischer Funktionen"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Bei konstanten m,k ohne Dämpfung gilt m*x''+k*x=0. Mit omega=sqrt(k/m) ist x=x0*cos(omega*t)+(v0/omega)*sin(omega*t). Einsetzen liefert beide Anfangswerte. E=m*v^2/2+k*x^2/2 ist konstant, weil dE/dt=v*(m*x''+k*x)=0. SI: omega in 1/s, x in m, E in J. Das lineare Federideal gilt nur im passenden Auslenkungsbereich.",
+      "criteria": [
+        "Bewegungsgleichung und Lösung sind konsistent.",
+        "Beide Anfangsbedingungen werden tatsächlich eingesetzt.",
+        "Eine symbolische Ableitung bestätigt nur einen Teil der Lösung, keine gesamte Physik."
+      ],
+      "mandatory_steps": [
+        "F=-kx mit Newton verbinden.",
+        "Charakteristische Frequenz omega=sqrt(k/m) begründen.",
+        "Allgemeine Sinus-/Kosinuslösung ansetzen.",
+        "Konstanten aus beiden Anfangswerten bestimmen.",
+        "Lösung durch Ableitungen und Energie prüfen.",
+        "Gültigkeit und SI-Einheiten nennen."
+      ],
+      "common_errors": [
+        "omega=k/m statt sqrt(k/m).",
+        "Faktor 1/omega vor v0 fehlt.",
+        "Energieerhaltung trotz still eingeführter Reibung behaupten."
+      ],
+      "source_ids": [
+        "mechanics_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "mechanics_notes",
+          "page_number": 1,
+          "quote": "x(t)=x0*cos(omega*t)+(v0/omega)*sin(omega*t)."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "harmonic oscillator",
+      "math_checks": [
+        {
+          "id": "oscillator-first-derivative",
+          "operation": "differentiate",
+          "expression": "a*cos(w*t)+b*sin(w*t)/w",
+          "variables": [
+            "a",
+            "b",
+            "w",
+            "t"
+          ],
+          "variable": "t",
+          "expected": "-a*w*sin(w*t)+b*cos(w*t)",
+          "assumptions": {
+            "w": "positive"
+          }
+        }
+      ]
+    },
+    {
+      "id": "DER_CENTRAL_FORCE",
+      "category": "derivation",
+      "topic": "Mechanik: zeitabhängige Zentralkraft",
+      "difficulty": "intermediate",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Für konstante Masse und r!=0 sei F=f(|r|,t)*r/|r|. Leite dL/dt her. Folgt Energieerhaltung? Wann ist eine radiale effektive Potentialbeschreibung möglich?",
+      "prerequisites": [
+        "Kreuzprodukt und Produktregel",
+        "Drehimpuls um ein festes Zentrum",
+        "Konservative Kräfte"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: L=r cross m*r_dot. Die Produktregel gibt r_dot cross m*r_dot=0 und r cross F=0, somit dL/dt=0. Bei L!=0 bleibt die Bahn in einer festen Ebene. Bei L=0 gibt es keine bestimmte Ebenennormale. Eine zeitabhängige zentrale Kraft garantiert keine Energieerhaltung. Für ein zeitunabhängiges konservatives U(r) gilt E=m*r_dot_radial^2/2+U(r)+L^2/(2*m*r^2). [L]=kg*m^2/s.",
+      "criteria": [
+        "Drehimpuls- und Energieerhaltung werden getrennt begründet.",
+        "Der Unterschied zwischen radialer und voller Geschwindigkeit bleibt erhalten."
+      ],
+      "mandatory_steps": [
+        "Drehimpuls relativ zum festen Zentrum definieren.",
+        "Produktregel einschließlich des verschwindenden Geschwindigkeitskreuzprodukts zeigen.",
+        "Drehmoment der Zentralkraft auswerten.",
+        "Sonderfall L=0 getrennt benennen.",
+        "Zusatzannahmen für konservierte Energie und U_eff angeben."
+      ],
+      "common_errors": [
+        "Aus jeder Zentralkraft Energieerhaltung folgern.",
+        "Drehmoment und Drehimpuls verwechseln.",
+        "Für L=0 eine eindeutige Ebenennormale behaupten."
+      ],
+      "source_ids": [
+        "mechanics_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "mechanics_notes",
+          "page_number": 2,
+          "quote": "Angular momentum conservation alone does not imply energy conservation."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "central force angular momentum",
+      "math_checks": []
+    },
+    {
+      "id": "DER_VACUUM_WAVE",
+      "category": "derivation",
+      "topic": "Elektrodynamik: transversale Vakuumwelle",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Leite für E=E0*cos(k·r-omega*t) im quellenfreien idealen Vakuum Transversalität, B-Feld, Dispersion und mittleren Poyntingvektor her. Nenne die Voraussetzungen und Einheiten.",
+      "prerequisites": [
+        "Quellenfreie Maxwell-Gleichungen in SI",
+        "Divergenz und Rotation einer ebenen Welle",
+        "Kreuzproduktidentität"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: div E=0 liefert k dot E0=0; Faraday liefert B0=(k cross E0)/omega. Ampere-Maxwell und Transversalität ergeben omega^2=c^2*|k|^2, c=1/sqrt(epsilon0*mu0). Für omega>0 und reelles k ist |B0|=|E0|/c. S=E cross B/mu0 und Mittelung cos^2=1/2 liefern <S>=epsilon0*c*|E0|^2*k_hat/2. Voraussetzung sind homogenes Vakuum, konstante Materialparameter, keine freien Quellen oder Randflächen. E in V/m, B in T, S in W/m^2.",
+      "criteria": [
+        "Die Maxwell-Gleichungen werden verwendet statt nur die Dispersion genannt.",
+        "Vorzeichen und Energieflussrichtung sind konsistent."
+      ],
+      "mandatory_steps": [
+        "Ansatz und reelle Parameter mit omega>0 angeben.",
+        "Transversalität aus der Divergenz herleiten.",
+        "B-Amplitude mit Faraday und korrekter Kreuzproduktrichtung bestimmen.",
+        "Dispersion aus Ampere-Maxwell herleiten.",
+        "Poyntingvektor mit Faktor 1/2 zeitlich mitteln.",
+        "B und H sowie Vakuumgrenzen unterscheiden."
+      ],
+      "common_errors": [
+        "Eine longitudinale freie Vakuumwelle behaupten.",
+        "B0=c*E0 schreiben.",
+        "Zeitmittelungsfaktor 1/2 oder SI-Konvention auslassen."
+      ],
+      "source_ids": [
+        "em_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "em_notes",
+          "page_number": 2,
+          "quote": "For E=E0*cos(k dot r-omega*t), k dot E0=0 and B0=(k cross E0)/omega."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "vacuum plane wave",
+      "math_checks": []
+    },
+    {
+      "id": "GREEN_DIRICHLET",
+      "category": "derivation",
+      "topic": "Mathematische Methoden: Dirichlet-Greenfunktion",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Konstruiere für L>0 die Greenfunktion des Operators A=-d²/dx² auf (0,L) mit homogenen Dirichlet-Rändern. Für stetiges f: Begründe u(x)=integral_0^L G(x,xi)f(xi) dxi, den Delta-Quellterm, Existenz und Eindeutigkeit. Erläutere, was ohne Randbedingungen unbestimmt bleibt, und prüfe Dimensionen.",
+      "prerequisites": [
+        "Lineare Randwertprobleme zweiter Ordnung",
+        "Distributionelle Ableitung und Delta-Distribution",
+        "Homogene Lösungen und Randbedingungen",
+        "Stetige Quellen auf einem endlichen Intervall"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Für x!=xi erfüllt G_xx=0, also sind beide Zweige linear. G(0,xi)=G(L,xi)=0, Stetigkeit bei xi und -[G_x]_{xi-}^{xi+}=1 bestimmen G=x_<*(L-x_>)/L. Links ist G_x=(L-xi)/L, rechts -xi/L, ihr Sprung -1. Stetigkeit vermeidet einen delta'-Term; der Ableitungssprung erzeugt -d_x^2 G=delta(x-xi). Für f stetig auf [0,L] liefert die Integraldarstellung eine klassische C²-Lösung mit beiden Nullrändern. Die Differenz zweier Lösungen ist linear und verschwindet an beiden Enden, also null; alternativ zeigt die positive Energieform mit Poincare die fehlende Nullmode. Ohne spezifizierte Ränder bleiben homogene Ergänzungen a(xi)+b(xi)*x und damit die Inverse unbestimmt. Bei x,L in m und f in [u]/m² hat G die Dimension m, damit integral G*f*dxi die Einheit [u]. Die Kernformel allein ist keine vollständige Herleitung.",
+      "criteria": [
+        "Stetigkeit, Ableitungssprung und distributioneller Quellterm werden getrennt begründet.",
+        "Existenz und Eindeutigkeit betreffen den konkret angegebenen Funktionsraum und die Dirichlet-Ränder.",
+        "Eine bloße Nennung des Kerns erfüllt die Pflichtschritte nicht."
+      ],
+      "mandatory_steps": [
+        "Operator, Intervall, L>0, Dirichlet-Ränder und stetige Quelle präzisieren.",
+        "Homogene lineare Lösungen für x<xi und x>xi ansetzen.",
+        "Beide Randbedingungen auf die Zweige anwenden.",
+        "Stetigkeit bei x=xi verlangen und delta'-Term ausschließen.",
+        "Integration über xi ergibt -Sprung(G_x)=1 mit korrektem Vorzeichen.",
+        "Lineare Koeffizienten lösen und G=x_<*(L-x_>)/L erhalten.",
+        "-d_x²G=delta(x-xi) distributionell erklären.",
+        "Integraldarstellung einsetzen, Ränder und reguläres f überprüfen.",
+        "Eindeutigkeit durch triviale homogene Dirichlet-Lösung oder Energieargument begründen.",
+        "Homogene Mehrdeutigkeit ohne Ränder benennen.",
+        "Dimensionen von G, f, delta und u konsistent prüfen."
+      ],
+      "common_errors": [
+        "Vorzeichen des Ableitungssprungs umkehren.",
+        "Nur die Kernformel nennen.",
+        "Eine auf der ganzen Achse gefundene Fundamentallösung ohne Randanpassung verwenden.",
+        "Eindeutigkeit ohne Randbedingungen behaupten.",
+        "G oder Delta dimensionslos nennen, wenn x eine Länge ist."
+      ],
+      "source_ids": [
+        "methods_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "methods_notes",
+          "page_number": 1,
+          "quote": "It is continuous at x=xi; the jump G_x(xi+)-G_x(xi-) equals -1."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Dirichlet Green function",
+      "math_checks": [
+        {
+          "id": "green-jump-only",
+          "operation": "check_identity",
+          "expression": "-(-q/L-(L-q)/L)",
+          "variables": [
+            "q",
+            "L"
+          ],
+          "expected": "1",
+          "assumptions": {
+            "L": "positive"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CON_GAUSS_FLUX",
+      "category": "concept",
+      "topic": "Elektrostatik: Fluss und lokales Feld",
+      "difficulty": "foundational",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Eine geschlossene Fläche enthält keine Nettoladung. Bedeutet das, dass das elektrische Feld auf der ganzen Fläche null ist? Erkläre mit einem Gegenbeispiel und Grenzen des Gaußgesetzes.",
+      "prerequisites": [
+        "Elektrischer Fluss",
+        "Orientierte geschlossene Oberfläche",
+        "Superposition elektrischer Felder"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Q_enclosed=0 erzwingt nur integral E dot dA=0. Ein homogenes nichtverschwindendes äußeres Feld hat gleichen ein- und austretenden Fluss. Auch eingeschlossene positive und negative Ladungen können Nettofluss null bei lokalem Feld liefern. Für eine lokale Feldbestimmung sind Symmetrie oder weitere Rand-/Quelleninformationen nötig.",
+      "criteria": [
+        "Integralbedingung und punktweiser Feldwert werden unterschieden.",
+        "Ein konkretes Gegenbeispiel ist physikalisch möglich."
+      ],
+      "mandatory_steps": [
+        "Gaußgesetz für eine geschlossene orientierte Fläche angeben.",
+        "Bedeutung von Nettoladung und Nettofluss erklären.",
+        "Ein nichtverschwindendes Gegenbeispiel nennen.",
+        "Zusätzlichen Informationsbedarf für lokale Felder benennen."
+      ],
+      "common_errors": [
+        "Aus Nullfluss E=0 an jedem Punkt folgern.",
+        "Eine offene Fläche wie eine gaußsche geschlossene Fläche behandeln."
+      ],
+      "source_ids": [
+        "em_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "em_notes",
+          "page_number": 1,
+          "quote": "Zero enclosed net charge gives zero net flux, not necessarily zero field."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Gauss law zero net flux",
+      "math_checks": []
+    },
+    {
+      "id": "CON_QM_COHERENCE",
+      "category": "concept",
+      "topic": "Quantenmechanik: Superposition und Mischung",
+      "difficulty": "intermediate",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Erkläre im unendlichen eindimensionalen Kasten den Unterschied zwischen dem normierten Zustand (phi1+phi2)/sqrt(2) und einer 50:50-Mischung der beiden Energiezustände. Warum reicht Orthogonalität nicht, um Interferenz punktweise zu entfernen?",
+      "prerequisites": [
+        "Normierung und Orthogonalität",
+        "Bornsche Regel",
+        "Reine Zustände und statistische Mischungen"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Die kohärente Dichte ist (|phi1|²+|phi2|²+2*Re(conjugate(phi1)*phi2))/2. Für die Mischung fehlt der Kreuzterm. Orthogonalität lässt dessen Integral verschwinden, nicht seinen Wert an jedem x. Beide Gesamtwahrscheinlichkeiten sind normiert; relative Phasen können lokale Interferenz verändern, globale Phasen nicht. phi_n hat in 1D Einheit m^(-1/2).",
+      "criteria": [
+        "Integrierte Orthogonalität wird nicht mit punktweiser Null verwechselt.",
+        "Kohärenz und Unkenntnismischung werden klar getrennt."
+      ],
+      "mandatory_steps": [
+        "Beide Zustandsbeschreibungen ausdrücklich unterscheiden.",
+        "Betragsquadrat der kohärenten Summe ausmultiplizieren.",
+        "Kreuzterm mit dem fehlenden Term der Mischung vergleichen.",
+        "Orthogonalität als Integralbedingung und die Normierung prüfen."
+      ],
+      "common_errors": [
+        "Interferenz aus Orthogonalität punktweise zu null setzen.",
+        "Globale und relative Phase verwechseln."
+      ],
+      "source_ids": [
+        "qm_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "qm_notes",
+          "page_number": 1,
+          "quote": "A normalized coherent sum has interference terms in its position density."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "infinite well interference",
+      "math_checks": []
+    },
+    {
+      "id": "CON_ENTROPY_ISOLATED",
+      "category": "concept",
+      "topic": "Thermodynamik: Gesamtentropie und Teilsystem",
+      "difficulty": "intermediate",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Ein Körper kühlt an einer wärmeren Umgebung nicht spontan ab, ein wärmerer Körper dagegen schon. Wie kann dabei seine Entropie abnehmen, ohne den zweiten Hauptsatz zu verletzen? Formuliere den relevanten Systemrand.",
+      "prerequisites": [
+        "Thermodynamischer Systemrand",
+        "Wärmeaustausch",
+        "Zweiter Hauptsatz"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Für das geeignet isolierte Gesamtsystem aus Körper und Umgebung gilt Delta S_total>=0. Die Körperentropie kann bei Wärmeabgabe sinken; die Umgebung gewinnt mindestens entsprechend viel Entropie. Bei spontaner Wärmeübertragung vom warmen zum kalten Körper ist die Gesamtproduktion positiv. Der zweite Hauptsatz verbietet nicht jede Entropieabnahme eines offenen Teilsystems. Eine genaue Berechnung braucht Temperaturen und Wärmekapazitäten.",
+      "criteria": [
+        "Gesamtsystem und Teilsystem werden explizit abgegrenzt.",
+        "Fehlende Materialdaten werden nicht erfunden."
+      ],
+      "mandatory_steps": [
+        "Systemgrenzen festlegen.",
+        "Entropietransport und Gesamtproduktion unterscheiden.",
+        "Zulässige Abnahme eines Teilsystems erklären.",
+        "Für quantitative Aussagen fehlende Temperatur-/Materialdaten nennen."
+      ],
+      "common_errors": [
+        "Jede lokale Entropieabnahme als Verstoß erklären.",
+        "Ohne Temperaturen eine feste Entropieänderung erfinden."
+      ],
+      "source_ids": [
+        "thermo_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "thermo_notes",
+          "page_number": 2,
+          "quote": "Equality describes a reversible idealization; a subsystem can lose entropy."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "isolated entropy subsystem",
+      "math_checks": []
+    },
+    {
+      "id": "CON_FOURIER_L2",
+      "category": "concept",
+      "topic": "Mathematische Methoden: Fourier-Sinusreihe",
+      "difficulty": "intermediate",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Warum kann eine Fourier-Sinusreihe eine L²-Funktion auf (0,L) darstellen, obwohl nicht jede Funktion an jedem Punkt einer solchen Reihe entspricht? Erkläre Koeffizienten, Orthogonalität und Konvergenzsinn.",
+      "prerequisites": [
+        "Skalarprodukt auf L²(0,L)",
+        "Orthogonale Funktionen",
+        "Unterschied zwischen Norm- und punktweiser Konvergenz"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Die Basis sin(n*pi*x/L) ist orthogonal mit Normquadrat L/2. Deshalb b_n=(2/L)*integral f*sin(n*pi*x/L) dx. Für f in L² gilt Konvergenz in L²; einzelne Punktwerte sind darin nicht festgelegt. Punktweise Aussagen, insbesondere an Sprüngen und Rändern der ungeraden Fortsetzung, brauchen Zusatzannahmen. Parseval ist integral|f|²=(L/2)*sum|b_n|². Bei dimensionsloser Sinusbasis haben b_n dieselbe Einheit wie f.",
+      "criteria": [
+        "Konvergenz in L² und punktweise Konvergenz werden getrennt.",
+        "Faktor 2/L wird aus der Norm hergeleitet."
+      ],
+      "mandatory_steps": [
+        "Skalarprodukt und Norm der Sinusfunktionen angeben.",
+        "Koeffizientenformel aus Orthogonalität erhalten.",
+        "L²-Konvergenz und freie Änderungen auf Nullmengen erklären.",
+        "Grenzen für Punktwerte und Randverhalten benennen."
+      ],
+      "common_errors": [
+        "Für jede L²-Funktion punktweise Gleichheit überall behaupten.",
+        "Normierungsfaktor L/2 bzw 2/L auslassen."
+      ],
+      "source_ids": [
+        "methods_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "methods_notes",
+          "page_number": 2,
+          "quote": "The sine series represents f in the L2 sense, not necessarily pointwise everywhere."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "sine basis L2",
+      "math_checks": []
+    },
+    {
+      "id": "EXAM_OSCILLATOR",
+      "category": "exam",
+      "topic": "Mechanik: numerische Oszillatoraufgabe",
+      "difficulty": "foundational",
+      "mode": "EXAM_MODE",
+      "question": "Löse die synthetische Aufgabe 1: m=2 kg, k=8 N/m, x(0)=0,1 m und v(0)=0,2 m/s. Bestimme omega und E mit Einheiten, und gib einen kurzen prüfbaren Ansatz.",
+      "prerequisites": [
+        "Harmonischer Oszillator",
+        "Quadratische kinetische und potentielle Energie",
+        "SI-Einheiten"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Das ungedämpfte lineare Modell liefert omega=sqrt(k/m)=2/s. E=m*v0²/2+k*x0²/2=0,04 J+0,04 J=0,08 J. Optional x(t)=0,1*cos(2t)+0,1*sin(2t) in m, wenn t in s gemessen wird. Die Aufgabe ist synthetisch und begründet keine Aussage über reale Prüfungswahrscheinlichkeiten.",
+      "criteria": [
+        "Beide Energiebeiträge und Einheiten werden sichtbar berechnet.",
+        "Keine Prüferpräferenzen aus einem Fixture erfinden."
+      ],
+      "mandatory_steps": [
+        "Modellannahme nennen.",
+        "omega aus k/m mit Quadratwurzel berechnen.",
+        "Kinetischen und potentiellen Beitrag getrennt einsetzen.",
+        "Summe und SI-Einheiten prüfen."
+      ],
+      "common_errors": [
+        "omega=4/s statt 2/s.",
+        "Nur einen Energiebeitrag verwenden.",
+        "Aus der Aufgabe eine reale Klausurprognose ableiten."
+      ],
+      "source_ids": [
+        "exam_sheet",
+        "mechanics_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "exam_sheet",
+          "page_number": 1,
+          "quote": "A harmonic oscillator has m=2 kg, k=8 N/m, x(0)=0.1 m, v(0)=0.2 m/s."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "harmonic oscillator",
+      "math_checks": [
+        {
+          "id": "oscillator-numeric-energy-only",
+          "operation": "simplify",
+          "expression": "2*0.2**2/2+8*0.1**2/2",
+          "variables": [
+            "x"
+          ],
+          "expected": "0.08"
+        }
+      ]
+    },
+    {
+      "id": "EXAM_CAPACITOR",
+      "category": "exam",
+      "topic": "Elektrostatik: isolierter Kondensator",
+      "difficulty": "intermediate",
+      "mode": "EXAM_MODE",
+      "question": "Bearbeite die synthetische Aufgabe 2: Ein isolierter Vakuum-Plattenkondensator mit Fläche A und fester Ladung Q wird quasistatisch von Abstand d auf 2d geöffnet. Vergleiche C, E, V und Feldenergie unter vernachlässigbaren Randfeldern.",
+      "prerequisites": [
+        "Plattenkondensator",
+        "Unterscheidung feste Ladung und feste Spannung",
+        "Feldenergie und Arbeit"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Wegen fehlender Batterie bleibt Q fest. C=epsilon0*A/d halbiert sich; E=Q/(epsilon0*A) bleibt im idealen Plattenmodell gleich, V=E*d verdoppelt sich. U=Q²/(2C) verdoppelt sich, zusätzliche Energie kommt aus äußerer quasistatischer Arbeit. Beide Abstände müssen klein gegen typische Plattenabmessungen bleiben. SI: C in F, E in V/m, U in J.",
+      "criteria": [
+        "Die Randbedingung Q konstant entscheidet den Ansatz.",
+        "Energieänderung wird mit äußerer Arbeit erklärt."
+      ],
+      "mandatory_steps": [
+        "Isolation und feste Ladung feststellen.",
+        "Kapazität bei beiden Abständen vergleichen.",
+        "Feld und Spannung getrennt bestimmen.",
+        "Energie mit Q²/(2C) und Arbeitsbilanz vergleichen.",
+        "Gültigkeit des Plattenideals begrenzen."
+      ],
+      "common_errors": [
+        "Spannung trotz Isolation konstant halten.",
+        "E bei festem Q wie 1/d skalieren.",
+        "Doppelte Energie ohne Arbeit erklären."
+      ],
+      "source_ids": [
+        "exam_sheet",
+        "em_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "exam_sheet",
+          "page_number": 2,
+          "quote": "The gap is increased quasistatically to 2*d; neglect fringing in both configurations."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "capacitor",
+      "math_checks": []
+    },
+    {
+      "id": "EXAM_BOX_PHOTON",
+      "category": "exam",
+      "topic": "Quantenmechanik: Energiedifferenz im Kasten",
+      "difficulty": "intermediate",
+      "mode": "EXAM_MODE",
+      "question": "Bearbeite die synthetische Aufgabe 3: Welche Energiedifferenz E2-E1 und welche Photonfrequenz nu gehören zum Übergang zwischen n=2 und n=1 eines Teilchens der Masse m im unendlich hohen 1D-Kasten der Breite L?",
+      "prerequisites": [
+        "Energieeigenwerte des unendlichen Kastens",
+        "Photonenergie h*nu",
+        "Unterschied Frequenz und Winkelfrequenz"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Für m,L>0 sind E_n=n²*pi²*hbar²/(2mL²). Deshalb Delta E=3*pi²*hbar²/(2mL²)>0. Die Photonfrequenz ist nu=Delta E/h=3*pi*hbar/(4mL²), da h=2*pi*hbar. Die Winkelfrequenz wäre Delta E/hbar. Das ist eine Energiezuordnung und keine unbegründete Aussage über Übergangsraten oder Kopplungen.",
+      "criteria": [
+        "Faktor 3 aus 2²-1² erscheint.",
+        "nu und omega werden unterschieden."
+      ],
+      "mandatory_steps": [
+        "Kastenmodell und positive Parameter nennen.",
+        "Beide Energien und ihre Differenz berechnen.",
+        "Mit h*nu in eine Frequenz umrechnen.",
+        "Einheiten und Grenzen einer Ratenaussage benennen."
+      ],
+      "common_errors": [
+        "Delta E=E2 statt E2-E1.",
+        "nu=Delta E/hbar schreiben.",
+        "Ohne Wechselwirkungsmodell eine feste Übergangsrate nennen."
+      ],
+      "source_ids": [
+        "exam_sheet",
+        "qm_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "exam_sheet",
+          "page_number": 3,
+          "quote": "Use h=2*pi*hbar and distinguish frequency nu from angular frequency omega."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "infinite well energy",
+      "math_checks": []
+    },
+    {
+      "id": "EXAM_ISOTHERMAL",
+      "category": "exam",
+      "topic": "Thermodynamik: reversible isotherme Expansion",
+      "difficulty": "intermediate",
+      "mode": "EXAM_MODE",
+      "question": "Bearbeite die synthetische Aufgabe 4: n Mol ideales Gas expandieren reversibel bei konstantem T>0 von V1 auf 2V1. Mit Delta U=Q-W_by_gas bestimme Arbeit, Wärme sowie Entropieänderungen von Gas und Reservoir.",
+      "prerequisites": [
+        "Ideale Gasgleichung",
+        "Erster Hauptsatz und Vorzeichenkonvention",
+        "Reversible Entropieänderung"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: W_by_gas=integral_V1^(2V1) nRT/V dV=nRT*ln2. Für das klassische ideale Gas ist Delta U=0 bei festem T, daher Q=nRT*ln2. Delta S_gas=nR*ln2 und Delta S_reservoir=-nR*ln2 bei reversiblem Wärmekontakt, Gesamtänderung null. Energie hat Einheit J und Entropie J/K; der Logarithmus enthält ein Volumenverhältnis.",
+      "criteria": [
+        "Vorzeichenkonvention wird durchgängig eingehalten.",
+        "Reversibilität und Gesamtentropie werden getrennt vom Gasanstieg erklärt."
+      ],
+      "mandatory_steps": [
+        "p=nRT/V unter den Annahmen einsetzen.",
+        "Arbeitsintegral und dimensionsloses Verhältnis auswerten.",
+        "Delta U und Q über den ersten Hauptsatz bestimmen.",
+        "Beide Entropieänderungen und die Gesamtsumme angeben."
+      ],
+      "common_errors": [
+        "Delta S_gas=0, weil T konstant ist.",
+        "Arbeit und Wärme mit widersprüchlichen Vorzeichen behandeln.",
+        "Irreversible Gesamtentropie ohne Begründung auf null setzen."
+      ],
+      "source_ids": [
+        "exam_sheet",
+        "thermo_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "thermo_notes",
+          "page_number": 1,
+          "quote": "Therefore Q=W_by_gas and Delta S_gas=n*R*ln(V2/V1)."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "ideal gas expansion",
+      "math_checks": [
+        {
+          "id": "isothermal-log-derivative-only",
+          "operation": "differentiate",
+          "expression": "n*R*T*log(v/v0)",
+          "variables": [
+            "n",
+            "R",
+            "T",
+            "v",
+            "v0"
+          ],
+          "variable": "v",
+          "expected": "n*R*T/v",
+          "assumptions": {
+            "n": "positive",
+            "R": "positive",
+            "T": "positive",
+            "v": "positive",
+            "v0": "positive"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIMIT_OSCILLATOR_FREE",
+      "category": "limits",
+      "topic": "Mechanik: singulär aussehender Frequenzgrenzfall",
+      "difficulty": "intermediate",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Die Oszillatorlösung enthält v0*sin(omega*t)/omega. Ist sie im Grenzfall k->0+ bei festem m>0 und endlichem t divergent? Begründe den Grenzübergang und seinen Gültigkeitsbereich.",
+      "prerequisites": [
+        "sin(z)/z-Grenzwert",
+        "Zusammenhang omega=sqrt(k/m)",
+        "Festhalten von Parametern bei Grenzwerten"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Für festes endliches t gilt sin(omega*t)/omega=t*sin(omega*t)/(omega*t)->t und cos(omega*t)->1. Damit x->x0+v0*t. Das ist freie Bewegung; bloßes Einsetzen omega=0 in eine Quotientenformel ist nicht zulässig. Für t, das gleichzeitig mit 1/omega wächst, ist dieser feste-Zeit-Grenzwert nicht ohne weitere Analyse gleichmäßig gültig.",
+      "criteria": [
+        "Scheinbare Singularität wird durch einen Grenzwert gelöst.",
+        "Festes t wird von mitlaufenden Zeitskalen unterschieden."
+      ],
+      "mandatory_steps": [
+        "omega->0 aus k->0+ bestimmen.",
+        "Quotienten als t*sin(omega*t)/(omega*t) schreiben.",
+        "Grenzwert aller Lösungsteile bilden.",
+        "Freie Bewegung und Nichtgleichmäßigkeit auf langen Zeitskalen erläutern."
+      ],
+      "common_errors": [
+        "Durch null dividieren statt Grenzwert bilden.",
+        "Freie Bewegung als konstante Auslenkung trotz v0!=0 angeben."
+      ],
+      "source_ids": [
+        "mechanics_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "mechanics_notes",
+          "page_number": 1,
+          "quote": "For k->0+ at fixed finite t the motion tends to x0+v0*t."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "harmonic oscillator k",
+      "math_checks": []
+    },
+    {
+      "id": "LIMIT_GAUSSIAN_SPREAD",
+      "category": "limits",
+      "topic": "Quantenmechanik: Dispersion und Unschärfe",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Für ein freies minimales Gaußpaket mit Anfangsdichtebreite sigma0>0: Wie ändern sich Ortsbreite und Unschärfeprodukt bei t=0 und für große |t|? Warum darf reine unitäre Entwicklung trotzdem mit Delta x*Delta p>hbar/2 einhergehen?",
+      "prerequisites": [
+        "Freie Schrödingerentwicklung",
+        "Varianz und Impulsunschärfe",
+        "Unschärferelation und Korrelationen"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Var(x)=sigma0²+hbar²*t²/(4m²*sigma0²), Delta p=hbar/(2sigma0). Anfangs ist das Produkt hbar/2; für nichtnulles t ist es (hbar/2)*sqrt(1+(hbar*t/(2m*sigma0²))²)>hbar/2. Große |t| geben sigma(t)~hbar*|t|/(2m*sigma0). Die reine Zustandsentwicklung erzeugt Orts-Impuls-Korrelationen; Cov(x,p)=hbar²*t/(4m*sigma0²), sodass die stärkere Schrödinger-Robertson-Schranke weiterhin gesättigt werden kann. Keine Decoherence allein aus größerem einfachem Produkt folgern.",
+      "criteria": [
+        "Standardabweichung und Varianz bleiben unterschieden.",
+        "Ein größerer Unsicherheitswert wird nicht mit Mischung gleichgesetzt."
+      ],
+      "mandatory_steps": [
+        "Varianz und konstantes Delta p angeben.",
+        "t=0 und nichtnulles t getrennt auswerten.",
+        "Asymptotische Breite für große |t| bestimmen.",
+        "Korrelationen statt vermeintlicher Nichtunitarität erklären."
+      ],
+      "common_errors": [
+        "Paketbreite bleibt immer konstant.",
+        "Minimales Produkt hbar/2 für alle Zeiten behaupten.",
+        "Dispersion automatisch als Verlust der Reinheit interpretieren."
+      ],
+      "source_ids": [
+        "qm_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "qm_notes",
+          "page_number": 2,
+          "quote": "Var(x)=sigma0^2*(1+(hbar*t/(2*m*sigma0^2))^2)."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Gaussian packet",
+      "math_checks": [
+        {
+          "id": "gaussian-variance-derivative-only",
+          "operation": "differentiate",
+          "expression": "s**2+h**2*t**2/(4*m**2*s**2)",
+          "variables": [
+            "s",
+            "h",
+            "t",
+            "m"
+          ],
+          "variable": "t",
+          "expected": "h**2*t/(2*m**2*s**2)",
+          "assumptions": {
+            "s": "positive",
+            "h": "positive",
+            "m": "positive"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIMIT_GAUSS_ASYMMETRY",
+      "category": "limits",
+      "topic": "Elektrostatik: Grenzen einer Symmetriemethode",
+      "difficulty": "intermediate",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Kann das Gaußgesetz allein das Feld einer beliebigen unsymmetrischen Ladungsverteilung punktweise bestimmen? Vergleiche die Aussage über Gesamtfluss mit der vereinfachten Rechnung bei Kugelsymmetrie.",
+      "prerequisites": [
+        "Gaußgesetz",
+        "Kugeloberfläche und Symmetrie",
+        "Integralgleichungen versus lokale Information"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Das Gaußgesetz bestimmt den Fluss durch eine geschlossene Fläche. Ohne weitere Informationen ist daraus kein einzelner lokaler Feldwert zu isolieren. Bei einer kugelsymmetrischen Verteilung lässt sich auf einer konzentrischen Kugel E_r als konstant und radial begründen, sodass E_r*4*pi*r²=Q_enclosed/epsilon0. Diese Vereinfachung darf nicht auf beliebige asymmetrische Quellen übertragen werden; das Gesetz selbst bleibt gültig.",
+      "criteria": [
+        "Grenze des Lösungsansatzes wird nicht als Ungültigkeit des Gesetzes ausgegeben.",
+        "Die notwendige Symmetrie wird explizit benannt."
+      ],
+      "mandatory_steps": [
+        "Allgemeines Flussgesetz nennen.",
+        "Fehlende lokale Information erklären.",
+        "Konstantes radiales Feld bei Kugelsymmetrie begründen.",
+        "Fehlende Symmetrie als Grenze der Vereinfachung benennen."
+      ],
+      "common_errors": [
+        "E=Q/(4*pi*epsilon0*r²) für beliebige Verteilungen benutzen.",
+        "Behaupten, das Gaußgesetz gelte nur kugelsymmetrisch."
+      ],
+      "source_ids": [
+        "em_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "em_notes",
+          "page_number": 1,
+          "quote": "Inferring a local field from Gauss law needs enough symmetry or more data."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Gauss law symmetry",
+      "math_checks": []
+    },
+    {
+      "id": "LIMIT_CLASSICAL_GAS",
+      "category": "limits",
+      "topic": "Thermodynamik: Tieftemperaturgrenze klassischer Modelle",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Darf die Entropieformel eines klassischen verdünnten idealen Gases bei festgehaltener positiver Teilchendichte bis T=0 extrapoliert werden? Nutze das Nichtentartungskriterium und nenne, was ohne weitere Stoff- und Quantendaten offenbleibt.",
+      "prerequisites": [
+        "Klassisches ideales Gas",
+        "Thermische de-Broglie-Wellenlänge",
+        "Nichtentartungsbedingung"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Mit lambda_T=sqrt(2*pi*hbar²/(m*k_B*T)) wächst lambda_T³ für T->0 wie T^(-3/2). Bei fester positiver Zahlendichte verletzt n_density*lambda_T³<<1 schließlich die klassische Näherung. Das klassische Entropiegesetz darf daher nicht als T=0-Vorhersage ausgegeben werden. Quantenstatistik, Wechselwirkungen, mögliche Phasen und Grundzustandsentartung benötigen zusätzliche Angaben; kein universeller konkreter Restentropiewert wird daraus bestimmt.",
+      "criteria": [
+        "Grenze einer Näherung wird vor einer Extrapolation geprüft.",
+        "Fehlende Quantendaten werden nicht ergänzt."
+      ],
+      "mandatory_steps": [
+        "Zahlendichte von Molzahl unterscheiden.",
+        "Thermische Wellenlänge und ihr T-Verhalten angeben.",
+        "Nichtentartungskriterium bei fester Dichte prüfen.",
+        "Unzulässige klassische Extrapolation zurückweisen.",
+        "Offene Modell-/Materialfragen ausdrücklich lassen."
+      ],
+      "common_errors": [
+        "Negative klassische Grenzentropie als verlässlichen T=0-Wert ausgeben.",
+        "Molzahl n ohne Volumen als Zahlendichte verwenden.",
+        "Alle Stoffe hätten ohne Zusatzannahmen denselben Restentropiewert."
+      ],
+      "source_ids": [
+        "thermo_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "thermo_notes",
+          "page_number": 2,
+          "quote": "At fixed positive density this condition fails as T approaches zero."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Classical dilute-gas entropy",
+      "math_checks": []
+    },
+    {
+      "id": "SOURCE_DREHIMPULS",
+      "category": "source",
+      "topic": "Mechanik: quellengebundene Definition",
+      "difficulty": "foundational",
+      "mode": "SOURCE_MODE",
+      "question": "Gib ausschließlich anhand der aktivierten synthetischen Mechanikquelle die Definition des Drehimpulses und den dort genannten Null-Drehmoment-Zusammenhang wieder. Verweise auf die echte bereitgestellte Fundstelle.",
+      "prerequisites": [
+        "Vektorielles Kreuzprodukt",
+        "Quelleninhalt versus eigene Ergänzung"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Die Quelle definiert L=r cross (m*r_dot) für konstante Masse und nennt dL/dt=r cross F=0 für eine zentrale Kraft. Die Antwort muss die tatsächlich zurückgelieferte Citation-ID verwenden und daraus serverseitig die Fundstelle auflösen lassen; keine erfundene gedruckte Seiten- oder Gleichungsnummer. Weitergehende Behauptungen gehören nicht in eine reine Quellenwiedergabe.",
+      "criteria": [
+        "Die Quellenbehauptung stimmt mit dem wörtlichen Fixture überein.",
+        "Citation zeigt die deklarierte zweite physische Fixture-Seite."
+      ],
+      "mandatory_steps": [
+        "Aktive Mechanikstelle identifizieren.",
+        "Definition und explizit genannte Annahme wiedergeben.",
+        "Den Null-Drehmoment-Zusammenhang passend belegen.",
+        "Unbelegte Ergänzungen weglassen."
+      ],
+      "common_errors": [
+        "Eine eigene Gleichungsnummer erfinden.",
+        "Zitat einer anderen oder deaktivierten Quelle verwenden."
+      ],
+      "source_ids": [
+        "mechanics_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "mechanics_notes",
+          "page_number": 2,
+          "quote": "L=r cross (m*r_dot), and dL/dt=r cross F=0 for constant mass m."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "angular momentum",
+      "math_checks": []
+    },
+    {
+      "id": "SOURCE_GAUSS_CLOSED",
+      "category": "source",
+      "topic": "Elektrostatik: geschlossene Oberfläche im Originaltext",
+      "difficulty": "foundational",
+      "mode": "SOURCE_MODE",
+      "question": "Was sagt die aktivierte synthetische Elektromagnetikquelle über das Gaußgesetz und die Art der Integrationsfläche? Trenne den wiedergegebenen Inhalt von einer möglichen Eigenableitung.",
+      "prerequisites": [
+        "Flussintegral",
+        "Orientierte Fläche",
+        "Präzise Quellenwiedergabe"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Wiederzugeben sind integral E dot dA=Q_enclosed/epsilon0 und die Bedingung einer geschlossenen orientierten Fläche. Die passende tatsächliche Passage ist die erste physische Fixture-Seite. Die Adresse wird aus dem Systemlocator gebildet. Das Vorhandensein der Citation allein ersetzt nicht den menschlichen Vergleich zwischen Behauptung und Text.",
+      "criteria": [
+        "Die entscheidende Flächenbedingung wird nicht ausgelassen.",
+        "Nur tatsächliche Quellenmetadaten werden verwendet."
+      ],
+      "mandatory_steps": [
+        "Passage aus der aktivierten Elektromagnetikquelle abrufen.",
+        "Gaußgesetz korrekt wiedergeben.",
+        "Geschlossene Orientierung ausdrücklich nennen.",
+        "Die zugehörige Citation referenzieren."
+      ],
+      "common_errors": [
+        "Eine offene Fläche behaupten.",
+        "Die Seitenzahl im Modelltext frei erfinden."
+      ],
+      "source_ids": [
+        "em_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "em_notes",
+          "page_number": 1,
+          "quote": "The surface integral is over a closed oriented surface."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Gauss law closed surface",
+      "math_checks": []
+    },
+    {
+      "id": "SOURCE_GAUSSIAN_CONVENTIONS",
+      "category": "source",
+      "topic": "Quantenmechanik: unterschiedliche Breitenkonventionen",
+      "difficulty": "intermediate",
+      "mode": "SOURCE_MODE",
+      "question": "Vergleiche ausschließlich die beiden aktivierten synthetischen Quellen: Die eine nutzt exp(-(x-x0)^2/(4*sigma0^2)), die andere exp(-(x-x0)^2/(2*a^2)). Sind ihre Breitenangaben widersprüchlich? Belege beide Konventionen.",
+      "prerequisites": [
+        "Betragsquadrat einer Wellenfunktion",
+        "Varianz einer Gaußdichte",
+        "Vergleich verschiedener Symbolkonventionen"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: In qm_notes ist sigma0 die Dichtestandardabweichung; source_limits nutzt einen Amplitudenparameter a mit Varianz a²/2. Für denselben Zustand wäre a=sqrt(2)*sigma0. Die unterschiedlichen Symbole allein sind kein physikalischer Widerspruch. Beide tatsächlich gelieferten Passagen müssen zitiert werden. Die Umrechnung ist als Eigenableitung aus den Quellenangaben erkennbar zu halten.",
+      "criteria": [
+        "Beide Quellen werden belegt, ohne die Definitionen zu vermischen.",
+        "Die abgeleitete Parameterumrechnung wird als eigene Rechnung benannt."
+      ],
+      "mandatory_steps": [
+        "Beide Amplituden- und Dichtedefinitionen aus den Originalstellen unterscheiden.",
+        "Dichtevarianzen zuordnen.",
+        "Bei gleicher Dichte a=sqrt(2)*sigma0 folgern.",
+        "Quelleninhalte und Eigenableitung getrennt kennzeichnen."
+      ],
+      "common_errors": [
+        "a=sigma0 ohne Vergleich der Exponenten setzen.",
+        "Einen Widerspruch behaupten, obwohl nur Konventionen verschieden sind.",
+        "Nur eine der zwei Quellen zitieren."
+      ],
+      "source_ids": [
+        "qm_notes",
+        "source_limits"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "qm_notes",
+          "page_number": 2,
+          "quote": "Here sigma0 is the standard deviation of the initial probability density."
+        },
+        {
+          "source_id": "source_limits",
+          "page_number": 1,
+          "quote": "Its variance is a^2/2; this a is not the sigma0 density width used in qm_notes."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Gaussian",
+      "math_checks": []
+    },
+    {
+      "id": "SOURCE_GREEN_MISSING_BC",
+      "category": "source",
+      "topic": "Mathematische Methoden: absichtlich unvollständige Evidenz",
+      "difficulty": "advanced",
+      "mode": "SOURCE_MODE",
+      "question": "Die einzige aktivierte Seite definiert die Delta-Distribution, nennt aber keine Randbedingungen. Gib daraus die eindeutige Greenfunktion von -d²/dx² auf (0,L) an oder erkläre genau, warum die Quelle dafür nicht reicht.",
+      "prerequisites": [
+        "Distributionen",
+        "Randbedingungen für die Inverse eines Differentialoperators",
+        "Umgang mit unvollständiger Evidenz"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Die einzige Quelle sagt ausdrücklich, dass keine Randbedingungen festgelegt sind. Eine eindeutige inverse Randwertabbildung und eine bestimmte Dirichlet-, Neumann- oder sonstige Greenfunktion sind daraus nicht bestimmt. Die Antwort muss diese Lücke mit der tatsächlich vorhandenen Stelle offenlegen und nach den Randbedingungen fragen. Sie darf weder die volle methods_notes-Quelle still aktivieren noch eine Dirichlet-Kernformel als Quelleninhalt erfinden.",
+      "criteria": [
+        "Fehlende Randbedingungen führen zu einer präzisen Lückenmeldung.",
+        "Nicht aktivierte passende Quellen bleiben ungenutzt."
+      ],
+      "mandatory_steps": [
+        "Beschränkte aktive Evidenz feststellen.",
+        "Die explizit fehlenden Randbedingungen benennen.",
+        "Eindeutige Kernangabe aus diesen Daten ablehnen.",
+        "Eine gezielte Rückfrage stellen statt Quelle oder Bedingung zu erfinden."
+      ],
+      "common_errors": [
+        "Dirichlet-Ränder ohne Auftrag unterstellen.",
+        "Eine nicht aktivierte passende Quelle hinzunehmen.",
+        "Fehlende Evidenz mit Modellwissen als belegten Inhalt ausgeben."
+      ],
+      "source_ids": [
+        "source_limits"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "source_limits",
+          "page_number": 2,
+          "quote": "No boundary conditions for a Green function are specified on this page."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Green function boundary conditions",
+      "math_checks": []
+    },
+    {
+      "id": "SOC_OSCILLATOR_SIGN",
+      "category": "socratic",
+      "topic": "Mechanik: Vorzeichen des Rückstellterms",
+      "difficulty": "foundational",
+      "mode": "SOCRATIC_MODE",
+      "question": "Ich habe für die Feder mit U=k*x²/2 den Ansatz m*x''=+k*x gewählt. Bitte gib mir nur einen ersten Hinweis und noch keine vollständige Lösung.",
+      "prerequisites": [
+        "Kraft als negativer Potentialgradient",
+        "Rückstellrichtung",
+        "Sokratische erste Interaktion"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Eine passende erste Reaktion fragt etwa: In welche Richtung sollte die Federkraft bei positiver Auslenkung wirken, und wie hängt das mit F=-dU/dx zusammen? Sie benennt gegebenenfalls den Potentialgradienten als Hinweis, löst aber nicht die vollständige Bewegungsgleichung. Bewertet wird nur diese erste Interaktion, nicht ein langfristiger Lernerfolg.",
+      "criteria": [
+        "Der falsche Ansatz wird durch eine gezielte Frage bearbeitet.",
+        "Keine ungefragte vollständige Lösung."
+      ],
+      "mandatory_steps": [
+        "Vorhandenen Ansatz anerkennen, ohne ihn falsch zu bestätigen.",
+        "Eine konkrete Frage zur Rückstellrichtung oder zum Gradienten stellen.",
+        "Beim vereinbarten Hinweisgrad bleiben."
+      ],
+      "common_errors": [
+        "Den Vorzeichenfehler bestätigen.",
+        "Die komplette Oszillatorlösung ungefragt ausgeben.",
+        "Einen gemessenen Lernerfolg aus einer Antwort behaupten."
+      ],
+      "source_ids": [
+        "tutorial_sheet"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "tutorial_sheet",
+          "page_number": 1,
+          "quote": "First hint only: compare the direction of the restoring force with displacement."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "restoring force",
+      "math_checks": []
+    },
+    {
+      "id": "SOC_CAPACITOR_CONSTRAINT",
+      "category": "socratic",
+      "topic": "Elektrostatik: richtige Randbedingung erfragen",
+      "difficulty": "intermediate",
+      "mode": "SOCRATIC_MODE",
+      "question": "Beim Auseinanderziehen eines isolierten Kondensators rechne ich mit U=C*V²/2 und halte V fest. Stelle mir zunächst nur eine hilfreiche Frage, statt die Aufgabe fertigzurechnen.",
+      "prerequisites": [
+        "Zusammenhang Q=C*V",
+        "Unterschied isoliert und angeschlossene Batterie",
+        "Sokratische erste Interaktion"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Eine gezielte erste Frage lautet sinngemäß: Ist noch eine Batterie angeschlossen, und welche Größe bleibt bei einem isolierten Kondensator deshalb fest? Diese Frage lenkt zur festen Ladung statt zur festen Spannung, ohne die gesamte Energieänderung vorwegzurechnen. Die Energieformel selbst ist nicht falsch; die gewählte Nebenbedingung muss geprüft werden.",
+      "criteria": [
+        "Formel und falsch gewählte Konstanzannahme werden unterschieden.",
+        "Der Hinweis bleibt eine erste gezielte Intervention."
+      ],
+      "mandatory_steps": [
+        "Die feste-V-Annahme als Prüfpunkt erkennen.",
+        "Nach Batterie bzw Erhaltung der Ladung fragen.",
+        "Keine fertige Skalierung aller Größen ungefragt liefern."
+      ],
+      "common_errors": [
+        "Die grundsätzlich korrekte Energieformel als immer falsch erklären.",
+        "Ohne Klärung feste Spannung voraussetzen."
+      ],
+      "source_ids": [
+        "tutorial_sheet"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "tutorial_sheet",
+          "page_number": 2,
+          "quote": "A disconnected capacitor keeps charge Q fixed, not voltage V."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "capacitor battery",
+      "math_checks": []
+    },
+    {
+      "id": "SOC_QM_DENSITY",
+      "category": "socratic",
+      "topic": "Quantenmechanik: Amplitude und Dichte unterscheiden",
+      "difficulty": "intermediate",
+      "mode": "SOCRATIC_MODE",
+      "question": "Ich lese aus psi proportional exp(-x²/(4*sigma²)) unmittelbar die Wahrscheinlichkeitsdichte ab. Kannst du mir nur eine erste Frage stellen, mit der ich meinen Ansatz selbst prüfen kann?",
+      "prerequisites": [
+        "Bornsche Regel",
+        "Betragsquadrat",
+        "Sokratische erste Interaktion"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Eine geeignete Frage lautet: Wie erhältst du die Wahrscheinlichkeitsdichte aus der Wellenamplitude psi, und was passiert dabei mit dem Exponenten? Das lenkt auf |psi|², ohne ungefragt die komplette Normierung oder freie Zeitentwicklung zu liefern. Es wird keine Diagnose des gesamten Kenntnisstands behauptet.",
+      "criteria": [
+        "Der Hinweis adressiert die konkrete Verwechslung.",
+        "Kein vollständiges Wellenpaketproblem als ungefragte Lösung."
+      ],
+      "mandatory_steps": [
+        "Amplitude von gesuchter Dichte sprachlich unterscheiden.",
+        "Nach dem Betragsquadrat bzw Exponenten fragen.",
+        "Beim ersten Hinweis bleiben."
+      ],
+      "common_errors": [
+        "Amplitude und Dichte gleichsetzen.",
+        "Eine langfristige Kompetenzbewertung aus dem kurzen Versuch erfinden."
+      ],
+      "source_ids": [
+        "tutorial_sheet"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "tutorial_sheet",
+          "page_number": 3,
+          "quote": "Ask first how the density is obtained from the complex amplitude psi."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "probability density amplitude",
+      "math_checks": []
+    },
+    {
+      "id": "SOC_GREEN_RIGHT_BOUNDARY",
+      "category": "socratic",
+      "topic": "Mathematische Methoden: Randprüfung eines Kernansatzes",
+      "difficulty": "advanced",
+      "mode": "SOCRATIC_MODE",
+      "question": "Für -u''=f mit u(0)=u(L)=0 habe ich G(x,xi)=min(x,xi) gewählt, weil der Ableitungssprung stimmt. Bitte stelle nur eine erste gezielte Kontrollfrage und verrate noch nicht den korrigierten Kern.",
+      "prerequisites": [
+        "Greenfunktion als Randwertkern",
+        "Dirichlet-Ränder",
+        "Prüfen eines Kandidaten statt sofortiger Vollkorrektur"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Eine passende Kontrollfrage ist: Welchen Wert ergibt dein Kandidat am rechten Rand x=L für 0<xi<L, und passt das zu u(L)=0? Der Hinweis prüft die bisher ausgelassene Randbedingung. Der vorhandene Delta-Sprung allein bestimmt nicht den Dirichlet-Kern. Keine korrigierte vollständige Formel ausgeben, solange sie nicht ausdrücklich gewünscht wird. Es ist nur ein Erstinteraktionsfall.",
+      "criteria": [
+        "Die konkrete fehlende rechte Randbedingung wird als Frage adressiert.",
+        "Der korrigierte Kern wird nicht ungefragt verraten."
+      ],
+      "mandatory_steps": [
+        "Den bereits geprüften Sprung von den übrigen Bedingungen unterscheiden.",
+        "Eine Frage zum Wert bei x=L stellen.",
+        "Beim gewünschten Hinweisgrad bleiben."
+      ],
+      "common_errors": [
+        "Den Ansatz wegen des Sprungs bereits vollständig bestätigen.",
+        "Sofort den fertigen Dirichlet-Kern liefern."
+      ],
+      "source_ids": [
+        "tutorial_sheet"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "tutorial_sheet",
+          "page_number": 4,
+          "quote": "A delta-function jump alone does not impose all boundary conditions."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated candidate authored for controlled testing; independent expert review required. Not a gold standard."
+      },
+      "retrieval_query": "Dirichlet trial kernel",
+      "math_checks": []
+    },
+    {
+      "id": "VARIATIONAL_EULER_LAGRANGE",
+      "category": "derivation",
+      "topic": "Mathematische Methoden: Variationsprinzip und Euler-Lagrange",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Leite für ein glattes skalares Funktional S[q]=integral_a^b L(t,q,q_dot)dt bei festen Endpunkten und festen Endzeiten die Euler-Lagrange-Gleichung her. Begründe Variation, partielles Integrieren, Fundamentallemma und Regularitätsannahmen. Ist jede stationäre Bahn ein Minimum? Prüfe den mechanischen Spezialfall L=m*q_dot²/2-V(q).",
+      "prerequisites": [
+        "Differentialrechnung mehrerer Variablen",
+        "Integration durch Teile",
+        "Kompakt gestützte bzw an den Endpunkten verschwindende Variationen",
+        "Unterschied zwischen notwendiger Stationarität und Minimalität"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Für eine C²-Bahn q und hinreichend glattes L (etwa C²) mit festen Endwerten setze q_epsilon=q+epsilon*eta, eta(a)=eta(b)=0, bei festen a,b. Differenzieren unter dem Integral ergibt delta S=integral(L_q*eta+L_qdot*eta_dot)dt. Partielle Integration liefert [L_qdot*eta]_a^b+integral(L_q-d/dt L_qdot)*eta dt; der Randterm verschwindet wegen eta=0. Weil geeignete innere Variationen beliebig sind, folgt aus dem Fundamentallemma L_q-d/dt L_qdot=0. Für L=m*q_dot²/2-V(q) resultiert m*q_ddot+V'(q)=0. Bei q in m hat L die Einheit J und S die Einheit J*s. Stationarität ist nur eine notwendige Bedingung; Minimalität braucht weitere Bedingungen, etwa eine geeignete zweite Variation. Freie Endpunkte oder variable Endzeiten erfordern andere Rand-/Transversalitätsbedingungen.",
+      "criteria": [
+        "Die Ableitung enthält den Randterm und begründet sein Verschwinden.",
+        "Das Fundamentallemma wird auf einen geeigneten regulären Integranden angewendet.",
+        "Notwendige Stationarität wird nicht als allgemeine Minimalitätsgarantie verkauft."
+      ],
+      "mandatory_steps": [
+        "Funktional, reguläre Bahn und glattes L mit festen Endzeiten und Endwerten präzisieren.",
+        "Variationsfamilie q_epsilon=q+epsilon*eta und eta(a)=eta(b)=0 definieren.",
+        "Erste Variation unter dem Integral herleiten.",
+        "Den eta_dot-Term partiell integrieren.",
+        "Den expliziten Randterm hinschreiben und mit den Endbedingungen eliminieren.",
+        "Beliebigkeit der inneren Variation und Fundamentallemma erklären.",
+        "Euler-Lagrange-Gleichung mit konsistentem Vorzeichen erhalten.",
+        "Mechanischen Spezialfall einsetzen.",
+        "Einheiten und die Grenze Stationarität versus Minimum benennen."
+      ],
+      "common_errors": [
+        "Den Randterm ohne Angabe der Variationsrandbedingungen streichen.",
+        "Die Euler-Lagrange-Gleichung nur zitieren statt herleiten.",
+        "Jede stationäre Lösung als Minimum behaupten.",
+        "Feste und freie Endpunkte vermischen."
+      ],
+      "source_ids": [
+        "methods_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "methods_notes",
+          "page_number": 3,
+          "quote": "Integration by parts gives the endpoint term [L_qdot*eta]_a^b=0."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated advanced candidate; independent mathematical and physical review required. No gold-standard or empirical model-quality status."
+      },
+      "retrieval_query": "Euler-Lagrange variation",
+      "math_checks": []
+    },
+    {
+      "id": "ELECTROSTATIC_GREEN_DIRICHLET",
+      "category": "derivation",
+      "topic": "Elektrostatik: Poissonproblem mit inhomogenen Dirichletwerten",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Bestimme auf 0<x<L bei konstantem epsilon>0 aus -phi''=rho(x)/epsilon die Potentialdarstellung für stetiges rho mit phi(0)=Va und phi(L)=Vb. Konstruiere den Greenkern samt Sprungbedingung, ergänze die inhomogenen Randwerte, begründe Eindeutigkeit und prüfe den Fall rho=rho0 sowie Einheiten.",
+      "prerequisites": [
+        "Eindimensionale Poissongleichung und E=-phi'",
+        "Greenfunktion und Delta-Distribution",
+        "Lineare homogene Lösungen",
+        "Dirichlet-Randwertproblem"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Der Nullrandkern ist G=x_<*(L-x_>)/L. Er ist stetig, verschwindet bei x=0,L und hat G_x-Sprung -1; folglich -d_x²G=delta(x-xi). Die Lösung lautet phi(x)=Va*(1-x/L)+Vb*x/L+(1/epsilon)*integral_0^L G(x,xi)*rho(xi)dxi. Die lineare homogene Ergänzung trägt die Randwerte; nur das Integral hätte beide Nullränder. Bei stetigem rho existiert damit eine klassische C²-Lösung. Eine Differenz zweier Lösungen ist linear mit Nullrändern und somit null; der Dirichletoperator hat keine nichttriviale homogene Nullmode. Für rho=rho0 wird phi=Va*(1-x/L)+Vb*x/L+rho0*x*(L-x)/(2epsilon), E=(Va-Vb)/L-rho0*(L-2x)/(2epsilon). In SI sind phi in V, epsilon in F/m, rho in C/m³ und G in m, sodass rho/epsilon die Einheit V/m² besitzt. Andere Randbedingungen sind ein anderes Inversionsproblem.",
+      "criteria": [
+        "Die Potentialdarstellung berücksichtigt beide nichtnulligen Randwerte.",
+        "Sprung, Delta-Vorzeichen, konstanter Ladungstest und E-Feld stimmen überein.",
+        "Die Eindeutigkeit wird am konkreten Dirichletproblem begründet."
+      ],
+      "mandatory_steps": [
+        "Poissonoperator, konstantes epsilon, L>0 und reguläres rho festlegen.",
+        "Beide linearen Kernzweige außerhalb x=xi herleiten.",
+        "Nullränder, Stetigkeit und -Sprung(G_x)=1 anwenden.",
+        "Delta-Eigenschaft und Integralanteil begründen.",
+        "Die lineare homogene Randwertfunktion ausdrücklich ergänzen.",
+        "Beide Randwerte der vollständigen Lösung prüfen.",
+        "Existenz und Eindeutigkeit aus Konstruktion und trivialer homogener Lösung erläutern.",
+        "Konstantes rho0 integrieren und durch zweite Ableitung kontrollieren.",
+        "E=-phi' und SI-Dimensionen prüfen."
+      ],
+      "common_errors": [
+        "Nichtnullige Randwerte aus einer reinen Nullrandintegraldarstellung erwarten.",
+        "Vorzeichen von Poissonoperator oder Sprung verwechseln.",
+        "E=+phi' statt -phi' verwenden.",
+        "Eine Dirichletlösung ohne Anpassung für beliebige Randbedingungen ausgeben."
+      ],
+      "source_ids": [
+        "em_notes",
+        "methods_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "em_notes",
+          "page_number": 3,
+          "quote": "phi=Va*(1-x/L)+Vb*x/L+integral_0^L G(x,xi)*rho(xi)/epsilon dxi."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated advanced candidate; independent mathematical and physical review required. No gold-standard or empirical model-quality status."
+      },
+      "retrieval_query": "electrostatic Dirichlet slab",
+      "math_checks": []
+    },
+    {
+      "id": "QM_COMMUTATOR_DOMAIN",
+      "category": "concept",
+      "topic": "Quantenmechanik: kanonischer Kommutator und Operatordomänen",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Zeige [X,P]psi=i*hbar*psi für Xpsi=xpsi und Ppsi=-i*hbar*psi' auf dem Schwartzraum S(R). Warum ist dies keine voraussetzungslose Identität auf ganz L²(R)? Diskutiere als Gegenkontrolle P mit periodischen Randwerten auf (0,L), den normierten konstanten Zustand und die Voraussetzungen einer Unschärfeaussage.",
+      "prerequisites": [
+        "Dicht definierte unbeschränkte Operatoren",
+        "Produktregel",
+        "Schwartzraum und Invarianz einer gemeinsamen Domäne",
+        "Robertson-Ungleichung und Momente"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Für psi in S(R) sind Xpsi und Ppsi wiederum Schwartzfunktionen. XPpsi=-i*hbar*x*psi', PXpsi=-i*hbar*(psi+x*psi'); Subtraktion ergibt i*hbar*psi. Die Aussage gilt auf dieser gemeinsamen invarianten dichten Domäne, nicht auf beliebigen L²-Funktionen ohne Ableitung bzw endliche Ortsmomente. Produkte verlangen psi in D(XP) und D(PX). Für den selbstadjungierten periodischen Ableitungsoperator auf (0,L) gilt zwar Ppsi=0 für psi=1/sqrt(L), doch Xpsi verletzt seine periodischen Randwerte. Der Produktkommutator ist an diesem Zustand daher nicht wie auf S(R) definiert. Delta P=0 und Delta X=L/sqrt(12) widersprechen keiner korrekt angewandten Unschärfeungleichung; die naive Ersetzung durch hbar/2 ignorierte Domänen-/Randterme. Auf R gelten für normierte geeignete Zustände, insbesondere Schwartzzustände, die bekannten Bedingungen für Delta X*Delta P>=hbar/2. [X,P] hat Einheit J*s. Eine formale Ableitungsrechnung oder ein Modellurteil ist kein allgemeiner Operatorbeweis.",
+      "criteria": [
+        "Die algebraische Rechnung nennt ausdrücklich eine gemeinsame invariante Domäne.",
+        "Der Intervallgegenfall wird über Randbedingungen statt über einen scheinbaren Widerspruch erklärt.",
+        "Keine pauschale Unschärfeuntergrenze ohne Domänen- und Zustandsvoraussetzungen."
+      ],
+      "mandatory_steps": [
+        "Hilbertraum und gemeinsame Schwartzdomäne angeben.",
+        "XPpsi und PXpsi mit der Produktregel einzeln berechnen.",
+        "Die Differenz auf dieser Domäne bilden.",
+        "Unbeschränktheit und nötige Produktdomänen von ganz L² unterscheiden.",
+        "Periodische Randwerte des Intervallimpulses benennen.",
+        "Am konstanten Zustand zeigen, dass Xpsi die periodische Impulsdomäne verlässt.",
+        "Die scheinbare Unschärfeverletzung durch fehlende Voraussetzungen auflösen.",
+        "SI-Einheiten und Grenzen eines formalen Differentialausdrucks nennen."
+      ],
+      "common_errors": [
+        "[X,P]=i*hbar auf ganz L² ohne Domäne behaupten.",
+        "Für jeden endlichen Intervallzustand pauschal Delta X*Delta P>=hbar/2 ausrufen.",
+        "Den periodischen konstanten Zustand als Widerlegung der Quantenmechanik darstellen.",
+        "Komplexe Operatorrechnung als durch den reellen AST-Rechner vollständig geprüft ausgeben."
+      ],
+      "source_ids": [
+        "qm_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "qm_notes",
+          "page_number": 3,
+          "quote": "Unbounded operator products are not defined on every L2 wavefunction."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated advanced candidate; independent mathematical and physical review required. No gold-standard or empirical model-quality status."
+      },
+      "retrieval_query": "canonical commutator domains",
+      "math_checks": []
+    },
+    {
+      "id": "FOURIER_HEAT_EQUATION",
+      "category": "derivation",
+      "topic": "Mathematische Methoden: Fourierlösung der Wärmegleichung",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Löse auf der ganzen reellen Achse u_t=D*u_xx mit D>0, u(x,0)=f(x) und f im Schwartzraum durch Fouriertransformation. Verwende f_hat(k)=integral exp(-ikx)f(x)dx und den inversen Faktor 1/(2pi). Begründe Gaußfaltung, Anfangswertgrenze, Erhaltung des räumlichen Integrals, Einheiten und Grenzen der Rückwärtsentwicklung.",
+      "prerequisites": [
+        "Fouriertransformation mit expliziter Normierung",
+        "Integration durch Teile unter Abfallbedingungen",
+        "Lineare Differentialgleichung für jede Fouriermode",
+        "Gaußintegral und Faltung"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Wegen des schnellen Abfalls von f und geeigneter Lösungen verschwinden Randterme, und Fourier(u_xx)=-k²*u_hat. Somit gilt d_t u_hat=-D*k²*u_hat und u_hat=e^(-D*k²t)*f_hat. Die inverse Konvention liefert für t>0 K_t(z)=(4*pi*D*t)^(-1/2)*exp(-z²/(4Dt)) und u(x,t)=integral_R K_t(x-y)f(y)dy. Die Normierung integral K_t=1 sichert das räumliche Integral integral u=integral f; die Approximation der Eins ergibt u->f für t downarrow0, insbesondere in passenden Lp-Normen und punktweise für diese glatten Daten. Bei t=0 ist K kein gewöhnlicher Gauß mit positiver Breite, sondern der Delta-Grenzwert. Mit x in m und t in s hat D die Einheit m²/s, k die Einheit 1/m und K die Einheit 1/m. Hohe k-Moden werden vorwärts gedämpft; die umgekehrte Multiplikation e^(+Dk²|t|) ist ohne weitere Einschränkungen instabil. Eindeutigkeit gilt in der angegebenen üblichen Semigruppen-/L²-Lösungsklasse, nicht als unqualifizierte Aussage über jede beliebige Wachstumsklasse.",
+      "criteria": [
+        "Transformationskonvention und Vorzeichen der k²-Mode werden kontrolliert.",
+        "Der Gaußkern wird normiert und nicht bei t=0 als gewöhnliche Funktion eingesetzt.",
+        "Integralserhaltung wird nicht ohne Materialfaktoren automatisch mit Gesamtenergie gleichgesetzt."
+      ],
+      "mandatory_steps": [
+        "Raum, D>0, t>=0, Anfangsdaten und Fourierkonvention präzisieren.",
+        "Zweimalige räumliche Ableitung unter Abfallannahmen transformieren.",
+        "Die modale Zeitgleichung mit Anfangswert lösen.",
+        "Inverse Transformation und normierten Gaußkern berechnen.",
+        "Faltungslösung angeben und für t>0 überprüfen.",
+        "Anfangswertgrenze als approximative Identität erläutern.",
+        "Räumliches Integral durch Kernnormierung erhalten.",
+        "Dimensionen prüfen und Vorwärtsglättung von instabiler Rückwärtsentwicklung trennen.",
+        "Eindeutigkeitsbehauptung auf eine geeignete Lösungsklasse begrenzen."
+      ],
+      "common_errors": [
+        "e^(+Dk²t) für die Vorwärtsdiffusion schreiben.",
+        "Faktor 1/(2pi) und Gaußnormierung vermischen.",
+        "Den t=0-Kern wie eine reguläre Funktion behandeln.",
+        "Ohne Zusatzdaten aus integral u eine bestimmte physikalische Energie folgern."
+      ],
+      "source_ids": [
+        "methods_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "methods_notes",
+          "page_number": 4,
+          "quote": "Then u_hat(k,t)=exp(-D*k^2*t)*f_hat(k)."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated advanced candidate; independent mathematical and physical review required. No gold-standard or empirical model-quality status."
+      },
+      "retrieval_query": "Fourier heat equation",
+      "math_checks": []
+    },
+    {
+      "id": "MECHANICS_PENDULUM_LIMIT",
+      "category": "limits",
+      "topic": "Mechanik: Pendel, Variationsgleichung und Kleinwinkelgrenze",
+      "difficulty": "advanced",
+      "mode": "DEEP_PHYSICS_MODE",
+      "question": "Leite aus L=m*l²*theta_dot²/2+m*g*l*cos(theta) das Pendelgesetz ab und löse die Kleinwinkelgleichung mit theta(0)=theta0 und theta_dot(0)=Omega0. Begründe, wann diese Näherung gilt, warum ein kleiner Anfangswinkel allein nicht reicht und was bei endlicher Amplitude bis zur Separatrix geschieht.",
+      "prerequisites": [
+        "Euler-Lagrange-Gleichung",
+        "Anfangswertproblem zweiter Ordnung",
+        "Stabilität und Kleinwinkelnäherung",
+        "Energie eines konservativen Pendels"
+      ],
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Für m,l,g>0, festen Aufhängepunkt, reibungsfreie ebene Bewegung und Winkel theta relativ zur unteren Vertikalen gilt d_t(ml²*theta_dot)+mgl*sin(theta)=0, also theta_ddot+(g/l)*sin(theta)=0. Für eine wirklich kleine Librationsamplitude ersetzt sin(theta)=theta+O(theta³) die nichtlineare Gleichung durch theta_ddot+omega0²*theta=0 mit omega0=sqrt(g/l). Daraus theta(t)=theta0*cos(omega0*t)+(Omega0/omega0)*sin(omega0*t). Nötig ist auch eine kleine aus beiden Anfangswerten gebildete lineare Amplitude sqrt(theta0²+(Omega0/omega0)²), nicht nur theta0 nahe null. Nichtlineare Librationen mit Maximalwinkel a in (0,pi) haben T=4*sqrt(l/g)*K(sin(a/2)); K ist das vollständige elliptische Integral erster Art. Daher T=2*pi*sqrt(l/g)*(1+a²/16+O(a⁴)) und T wächst unbegrenzt für a->pi- an der Separatrix. Phasenfehler der linearen Näherung können sich über viele Perioden anhäufen; Rotationen sind kein kleiner harmonischer Schwingungsfall. L hat Einheit J, omega0 und Omega0 haben Einheit 1/s, theta ist dimensionslos in Radiant.",
+      "criteria": [
+        "Vorzeichen von Potential und Euler-Lagrange sind zur unteren Gleichgewichtslage konsistent.",
+        "Beide Anfangswerte und eine echte Amplitudenbedingung werden verwendet.",
+        "Lineare Frequenz wird nicht als exakter amplitudenunabhängiger Wert jeder Pendelbewegung behauptet."
+      ],
+      "mandatory_steps": [
+        "Mechanische Annahmen und Winkelkonvention nennen.",
+        "Ableitungen des Lagrangefunktionals explizit in Euler-Lagrange einsetzen.",
+        "Nichtlineare Gleichung und unteres stabiles Gleichgewicht erhalten.",
+        "Sinusentwicklung mit Ordnung des vernachlässigten Terms angeben.",
+        "Lineare Gleichung aus beiden Anfangswerten lösen.",
+        "Amplitudenbedingung aus Winkel und Winkelgeschwindigkeit prüfen.",
+        "Endliche Amplitude und Separatrixgrenze von der Kleinwinkeltheorie unterscheiden.",
+        "Einheiten und möglichen langfristigen Phasenfehler erläutern."
+      ],
+      "common_errors": [
+        "theta_ddot-(g/l)*sin(theta)=0 um das untere Gleichgewicht angeben.",
+        "Einen kleinen theta0 trotz großer Anfangsgeschwindigkeit für ausreichend halten.",
+        "Den linearen Periodenwert für jede Amplitude oder Rotation behaupten.",
+        "Eine zweite Anfangsbedingung weglassen."
+      ],
+      "source_ids": [
+        "mechanics_notes"
+      ],
+      "expected_sources": [
+        {
+          "source_id": "mechanics_notes",
+          "page_number": 3,
+          "quote": "Small initial angle alone is insufficient if the initial angular speed is large."
+        }
+      ],
+      "validation": {
+        "status": "unvalidated",
+        "reviewer": null,
+        "reviewed_at": null,
+        "notes": "Unvalidated advanced candidate; independent mathematical and physical review required. No gold-standard or empirical model-quality status. The optional symbolic check covers only sin(x)/x -> 1, not the full mechanical derivation."
+      },
+      "retrieval_query": "pendulum small-angle limit",
+      "math_checks": [
+        {
+          "id": "small_angle_limit",
+          "operation": "limit",
+          "expression": "sin(x)/x",
+          "variables": [
+            "x"
+          ],
+          "variable": "x",
+          "point": "0",
+          "direction": "both",
+          "expected": "1"
+        }
+      ]
+    }
+  ]
+}

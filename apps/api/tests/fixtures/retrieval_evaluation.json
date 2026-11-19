@@ -1,0 +1,70 @@
+{
+  "dataset_id": "synthetic-physics-retrieval-v1",
+  "synthetic": true,
+  "description": "Controlled term-location fixtures, not real scientific literature or a benchmark of physical truth.",
+  "documents": [
+    {
+      "title": "Synthetisches Skript",
+      "source_type": "lecture_notes",
+      "pages": [
+        "2.1 Drehimpuls\nSynthetic fixture for the named concept Drehimpuls.",
+        "2.2 Energie\nSynthetic fixture for the named concept Energie.",
+        "2.3 Wellen\nSynthetic fixture for the named concept Wellen."
+      ]
+    },
+    {
+      "title": "Synthetisches Blatt",
+      "source_type": "exercise_sheet",
+      "pages": [
+        "Aufgabe 1\nSynthetic task mentioning Drehimpuls.",
+        "Aufgabe 2a\nSynthetic task mentioning Energie."
+      ]
+    },
+    {
+      "title": "Synthetische Klausur",
+      "source_type": "past_exam",
+      "pages": [
+        "Aufgabe 3\nSynthetic exam task mentioning Energie.",
+        "Aufgabe 4\nSynthetic exam task mentioning Wellen."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Wo wird Drehimpuls im kontrollierten Korpus erwaehnt?",
+      "query": "Drehimpuls",
+      "filters": {},
+      "expected": [
+        {"document_title": "Synthetisches Skript", "page_number": 1},
+        {"document_title": "Synthetisches Blatt", "page_number": 1}
+      ]
+    },
+    {
+      "question": "Welche Dokumentstellen nennen Energie?",
+      "query": "Energie",
+      "filters": {},
+      "expected": [
+        {"document_title": "Synthetisches Skript", "page_number": 2},
+        {"document_title": "Synthetisches Blatt", "page_number": 2},
+        {"document_title": "Synthetische Klausur", "page_number": 1}
+      ]
+    },
+    {
+      "question": "Wo finden sich Skript- und Klausurstellen zu Wellen?",
+      "query": "Wellen",
+      "filters": {},
+      "expected": [
+        {"document_title": "Synthetisches Skript", "page_number": 3},
+        {"document_title": "Synthetische Klausur", "page_number": 2}
+      ]
+    },
+    {
+      "question": "Welche Stelle gehoert zur Aufgabe 2a ueber Energie?",
+      "query": "Energie",
+      "filters": {"exercise_label": "2a"},
+      "expected": [
+        {"document_title": "Synthetisches Blatt", "page_number": 2}
+      ]
+    }
+  ]
+}
