@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:17@sha256:0d938e975177bef9f1f61f3f9dbcf2e0aa0a139568f66d3415ed8892eb97f6ac
+    environment:
+      POSTGRES_USER: physics
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a local development database password}
+      POSTGRES_DB: physics_center
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - physics_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U physics -d physics_center"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  physics_db:

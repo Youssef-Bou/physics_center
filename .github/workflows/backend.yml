@@ -1,0 +1,44 @@
+name: Backend
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17@sha256:0d938e975177bef9f1f61f3f9dbcf2e0aa0a139568f66d3415ed8892eb97f6ac
+        env:
+          POSTGRES_USER: physics
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: physics_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U physics -d physics_test"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+    defaults:
+      run:
+        working-directory: apps/api
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://physics:ci-only-password@127.0.0.1:5432/physics_test
+      PHYSICS_LLM_PROVIDER: mock
+      PHYSICS_LLM_ENABLE_REAL: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install uv==0.13.6
+      - run: uv sync --frozen --extra math
+      - run: uv run --frozen --extra math ruff check app tests migrations scripts
+      - run: uv run --frozen --extra math ruff format --check app tests migrations scripts
+      - run: uv run --frozen --extra math python scripts/green_reference_check.py
+      - run: uv run --frozen --extra math pytest
