@@ -1,10 +1,12 @@
 """Controlled symbolic examples and hostile-input checks; no provider calls."""
 
 import importlib.util
+from types import SimpleNamespace
 
 import pytest
 from pydantic import ValidationError
 
+from app.modules.tutor import mathematics
 from app.modules.tutor.mathematics import MathCheckRequest, MathCheckResult, SympyMathTool
 
 HAS_SYMPY = importlib.util.find_spec("sympy") is not None
@@ -394,3 +396,279 @@ def test_oscillatory_limit_does_not_claim_a_scalar_value():
     )
     assert checked.status == "inconclusive"
     assert checked.result is None
+
+
+def worker_frame(event, result=None):
+    """Independent protocol fixture; successful outcomes still need request binding."""
+    frame = {
+        "protocol": "physics-sympy-worker.v1",
+        "request_id": "protocol-fixture",
+        "operation": "simplify",
+        "event": event,
+    }
+    if result is not None:
+        frame["result"] = result
+    return frame
+
+
+def successful_worker_result(**changes):
+    result = {
+        "id": "protocol-fixture",
+        "operation": "simplify",
+        "status": "tool_computed",
+        "result": "2*x",
+        "details": "A controlled worker-protocol fixture.",
+        "method": "sympy-fixture-isolated",
+        "physics_proof": False,
+    }
+    result.update(changes)
+    return result
+
+
+def fake_worker(monkeypatch, frames, *, launch_delay=0.0, stubborn=False, ignore_kill=False):
+    """No sleeps/processes: advance a virtual monotonic clock only by requested waits."""
+    state = SimpleNamespace(now=0.0)
+
+    class Endpoint:
+        closed = False
+
+        def close(self):
+            self.closed = True
+
+    class Pipe(Endpoint):
+        def __init__(self):
+            self.frames = list(frames)
+            self.poll_timeouts = []
+            self.sent = []
+            self.pending = None
+
+        def poll(self, timeout):
+            assert timeout >= 0
+            self.poll_timeouts.append(timeout)
+            if not self.frames or self.frames[0][0] > timeout:
+                state.now += timeout
+                return False
+            delay, self.pending = self.frames.pop(0)
+            state.now += delay
+            return True
+
+        def recv(self):
+            if isinstance(self.pending, BaseException):
+                raise self.pending
+            return self.pending
+
+        def send(self, value):
+            self.sent.append(value)
+
+    class Process:
+        pid = None
+        alive = False
+        closed = False
+        terminated = False
+        killed = False
+
+        def __init__(self):
+            self.join_timeouts = []
+
+        def start(self):
+            self.pid = 123
+            self.alive = True
+            state.now += launch_delay
+
+        def is_alive(self):
+            return self.alive
+
+        def terminate(self):
+            self.terminated = True
+            if not stubborn:
+                self.alive = False
+
+        def join(self, timeout):
+            self.join_timeouts.append(timeout)
+            if self.alive:
+                state.now += timeout
+
+        def kill(self):
+            self.killed = True
+            if not ignore_kill:
+                self.alive = False
+
+        def close(self):
+            assert not self.alive
+            self.closed = True
+
+    parent, child, process = Pipe(), Endpoint(), Process()
+
+    class Context:
+        def Pipe(self, duplex):
+            assert duplex is True
+            return parent, child
+
+        def Process(self, *, target, args, daemon):
+            assert target is mathematics._worker and daemon is True
+            assert 1 <= args[2] <= 8
+            return process
+
+    monkeypatch.setattr(mathematics.importlib.util, "find_spec", lambda name: object())
+    monkeypatch.setattr(mathematics.multiprocessing, "get_context", lambda name: Context())
+    monkeypatch.setattr(mathematics, "monotonic", lambda: state.now)
+    state.parent, state.child, state.process = parent, child, process
+    return state
+
+
+def protocol_check(tool=None):
+    return (tool or SympyMathTool()).check(
+        MathCheckRequest(id="protocol-fixture", operation="simplify", expression="x+x")
+    )
+
+
+def test_cold_start_has_a_separate_budget_before_the_compute_command(monkeypatch):
+    state = fake_worker(
+        monkeypatch,
+        [(4.8, worker_frame("ready")), (1.9, worker_frame("result", successful_worker_result()))],
+    )
+    result = protocol_check()
+    assert result.status == "tool_computed"
+    assert result.result == "2*x"
+    assert state.now == pytest.approx(6.7)
+    assert state.parent.poll_timeouts == pytest.approx([5.0, 2.0])
+    assert state.parent.sent == [worker_frame("compute")]
+    assert state.parent.closed and state.child.closed and state.process.closed
+
+
+def test_worker_launch_time_is_part_of_the_startup_deadline(monkeypatch):
+    state = fake_worker(monkeypatch, [(0.1, worker_frame("ready"))], launch_delay=5.1)
+    result = protocol_check()
+    assert result.status == "inconclusive"
+    assert "startup budget" in result.details
+    assert state.parent.poll_timeouts == []
+    assert state.parent.sent == []
+
+
+def test_startup_timeout_does_not_issue_a_compute_command(monkeypatch):
+    state = fake_worker(monkeypatch, [])
+    result = protocol_check()
+    assert result.status == "inconclusive"
+    assert result.result is None
+    assert "startup budget" in result.details
+    assert state.now == pytest.approx(5.0)
+    assert state.parent.sent == []
+    assert state.process.terminated and state.process.closed
+
+
+def test_compute_timeout_keeps_its_two_second_limit_after_a_slow_start(monkeypatch):
+    state = fake_worker(monkeypatch, [(4.9, worker_frame("ready"))])
+    result = protocol_check()
+    assert result.status == "inconclusive"
+    assert "compute budget" in result.details
+    assert state.parent.poll_timeouts == pytest.approx([5.0, 2.0])
+    assert state.parent.sent == [worker_frame("compute")]
+    assert state.now == pytest.approx(6.9)
+
+
+@pytest.mark.parametrize("phase", ["startup", "compute"])
+def test_worker_eof_is_inconclusive_and_never_a_scientific_result(monkeypatch, phase):
+    frames = [(0.1, EOFError())]
+    if phase == "compute":
+        frames.insert(0, (0.1, worker_frame("ready")))
+    state = fake_worker(monkeypatch, frames)
+    result = protocol_check()
+    assert result.status == "inconclusive"
+    assert result.result is None
+    assert result.physics_proof is False
+    assert phase in result.details
+    assert state.parent.closed and state.child.closed and state.process.closed
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"protocol": "unknown-worker.v0"},
+        {"request_id": "another-request"},
+        {"operation": "integrate"},
+        {"event": "compute"},
+        {"unexpected": "field"},
+    ],
+)
+def test_startup_requires_an_exact_versioned_ready_message(monkeypatch, change):
+    state = fake_worker(monkeypatch, [(0.1, {**worker_frame("ready"), **change})])
+    result = protocol_check()
+    assert result.status == "inconclusive"
+    assert "protocol" in result.details
+    assert state.parent.sent == []
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"id": "another-request"},
+        {"operation": "integrate"},
+        {"status": "looks_correct"},
+        {"physics_proof": True},
+    ],
+)
+def test_result_requires_matching_request_and_validated_result_contract(monkeypatch, change):
+    fake_worker(
+        monkeypatch,
+        [
+            (0.1, worker_frame("ready")),
+            (0.1, worker_frame("result", successful_worker_result(**change))),
+        ],
+    )
+    result = protocol_check()
+    assert result.status == "inconclusive"
+    assert result.result is None
+    assert "invalid result protocol" in result.details
+
+
+@pytest.mark.parametrize("status", ["failed", "unavailable"])
+def test_startup_can_report_only_explicit_non_success_results(monkeypatch, status):
+    state = fake_worker(
+        monkeypatch,
+        [
+            (
+                0.1,
+                worker_frame(
+                    "startup_result", successful_worker_result(status=status, result=None)
+                ),
+            )
+        ],
+    )
+    result = protocol_check()
+    assert result.status == status
+    assert state.parent.sent == []
+
+
+def test_a_result_cannot_claim_success_before_readiness(monkeypatch):
+    state = fake_worker(
+        monkeypatch, [(0.1, worker_frame("startup_result", successful_worker_result()))]
+    )
+    assert protocol_check().status == "inconclusive"
+    assert state.parent.sent == []
+
+
+def test_teardown_has_no_unbounded_join_even_when_termination_is_unresponsive(monkeypatch):
+    state = fake_worker(monkeypatch, [], stubborn=True, ignore_kill=True)
+    result = protocol_check()
+    assert result.status == "inconclusive"
+    assert state.process.terminated and state.process.killed
+    assert state.process.join_timeouts == [0.5, 0.5]
+    assert state.now == pytest.approx(6.0)
+    assert state.process.closed is False
+    assert state.parent.closed and state.child.closed
+
+
+@pytest.mark.parametrize(
+    "setting,value",
+    [
+        ("startup_timeout_seconds", 0),
+        ("startup_timeout_seconds", 5.1),
+        ("startup_timeout_seconds", float("inf")),
+        ("timeout_seconds", 0),
+        ("timeout_seconds", 2.1),
+        ("timeout_seconds", float("nan")),
+    ],
+)
+def test_startup_and_compute_budgets_remain_finite_and_bounded(setting, value):
+    with pytest.raises(ValueError):
+        SympyMathTool(**{setting: value})

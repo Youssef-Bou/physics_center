@@ -5,7 +5,7 @@ Zwei maschinenlesbare Versionen verwenden die Kennung `physics-tutor-candidates`
 | Datei | Version | Umfang |
 | --- | --- | --- |
 | [physics_v1.json](../apps/api/app/modules/evaluation/data/physics_v1.json) | `1.0.0` | Unveränderte Baseline mit 24 Fällen, genau vier je Kategorie. |
-| [physics_adaptive_v1.json](../apps/api/app/modules/evaluation/data/physics_adaptive_v1.json) | `1.1.0` | Dieselben 24 Fälle plus fünf anspruchsvolle Fälle für adaptive Erklärungstiefe, insgesamt 29. |
+| [physics_adaptive_v1.json](../apps/api/app/modules/evaluation/data/physics_adaptive_v1.json) | `1.1.1` | Dieselben 24 Fälle plus fünf anspruchsvolle Fälle für adaptive Erklärungstiefe, insgesamt 29. |
 
 Die Baseline enthält **24 selbst formulierte Fälle**, jeweils vier in den sechs
 Kategorien Herleitung, Konzeptverständnis, Klausuraufgabe, Gültigkeitsgrenzen,
@@ -13,6 +13,10 @@ Quellenarbeit und sokratische Erstinteraktion. Die Erweiterung fügt drei
 Herleitungsfälle, einen Konzeptfall und einen Grenzfall hinzu; sie ist deshalb
 nicht mehr gleichmäßig auf die Kategorien verteilt. Die ursprüngliche Datei und
 ihre 24 Fälle bleiben unverändert.
+
+Patch 1.1.1 präzisiert den elektrostatischen Green-Fall und dessen Quellenseite
+(planare Symmetrie und rho in C([0,L])); die ursprünglichen 24 Fälle bleiben
+unverändert. Prüfung und Pilotablauf: [GREEN_PILOT](GREEN_PILOT.md).
 
 Beide Versionen sind Kandidatenbestände für kontrollierte Tests, **keine fachlich
 validierten Goldstandards**. Es wurden damit noch keine Qualitätswerte eines realen

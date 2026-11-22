@@ -153,8 +153,10 @@ oszillierende oder nicht ausreichend geklärte reale Grenzwerte ergeben
 `inconclusive`, statt eine Gleichheit vorzutäuschen. Punkt, Richtung und
 Definitionsbedingungen werden im Ergebnis genannt.
 
-Die bisherige AST-Whitelist und das isolierte Zwei-Sekunden-Prozessbudget gelten
-weiter. Es gibt keine freie Python-Auswertung, keine allgemeine Beweisautomatik und
+Die bisherige AST-Whitelist und das isolierte Zwei-Sekunden-Rechenbudget gelten
+weiter. Der Prozessstart einschließlich SymPy-Import ist separat auf fünf Sekunden
+begrenzt; ein Ready-Handshake trennt beide Phasen. Es gibt keine freie
+Python-Auswertung, keine allgemeine Beweisautomatik und
 keine vollständige Prüfung von Quantenmechanik, Distributionen oder
 Funktionalanalysis. Ohne installiertes `math`-Extra kann das Werkzeug `unavailable`
 melden. Jedes Ergebnis behält `physics_proof=false`; ein symbolisch geprüfter
@@ -164,7 +166,7 @@ Grenzwert bestätigt nicht das physikalische Modell einer gesamten Antwort.
 
 Der separate Datensatz
 [physics_adaptive_v1.json](../apps/api/app/modules/evaluation/data/physics_adaptive_v1.json)
-hat die Kennung `physics-tutor-candidates`, Version `1.1.0`, und 29 Fälle.
+hat die Kennung `physics-tutor-candidates`, Version `1.1.1`, und 29 Fälle.
 Die ursprünglichen 24 Fälle bleiben in `physics_v1.json` Version `1.0.0`
 unverändert verfügbar. Hinzu kommen fünf anspruchsvolle Deep-Physics-Kandidaten:
 

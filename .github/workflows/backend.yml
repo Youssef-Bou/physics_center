@@ -40,4 +40,5 @@ jobs:
       - run: uv sync --frozen --extra math
       - run: uv run --frozen --extra math ruff check app tests migrations scripts
       - run: uv run --frozen --extra math ruff format --check app tests migrations scripts
+      - run: uv run --frozen --extra math python scripts/green_reference_check.py
       - run: uv run --frozen --extra math pytest

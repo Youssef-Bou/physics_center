@@ -273,9 +273,14 @@ Beispiel eines zusätzlichen Feldes in einer Tutor-Anfrage:
 }
 ```
 
-Jede Rechnung läuft in einem separaten, anschließend beendeten Prozess mit maximal
-zwei Sekunden Berechnungswartezeit. Auf unterstützten Plattformen kommen CPU-/
-Speicherlimits hinzu; das ist keine allgemeine Sandbox für fremde Programme.
+Jede Rechnung läuft in einem separaten, anschließend beendeten Prozess. Dessen
+Start einschließlich SymPy-Import hat maximal fünf Sekunden; erst nach einem
+validierten Ready-Handshake beginnt das weiterhin auf höchstens zwei Sekunden
+begrenzte Rechenbudget. Der Abbau wartet höchstens zweimal eine halbe Sekunde,
+mit Terminate und gegebenenfalls Kill. Start-/Rechenzeitüberschreitung und
+Protokollabbruch liefern `inconclusive`, keine automatische Wiederholung.
+Auf unterstützten Plattformen kommen CPU-/Speicherlimits hinzu; das ist keine
+allgemeine Sandbox für fremde Programme.
 Ein Werkzeugstatus unterscheidet:
 
 - `tool_computed`: Ergebnis berechnet, ohne vorgegebenes Ergebnis zu bestätigen.

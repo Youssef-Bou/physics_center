@@ -1,7 +1,7 @@
 {
   "id": "physics-tutor-candidates",
-  "version": "1.1.0",
-  "description": "Twenty-nine unvalidated candidates: unchanged baseline cases plus five advanced adaptive-explanation cases, with explicitly synthetic source fixtures. Not a gold standard and not measured model-quality evidence.",
+  "version": "1.1.1",
+  "description": "Twenty-nine unvalidated candidates: unchanged baseline cases plus five advanced adaptive-explanation cases. Patch 1.1.1 makes the electrostatic Green case geometry and closed-interval regularity explicit. Synthetic fixtures; not a gold standard or measured model-quality evidence.",
   "sources": [
     {
       "id": "mechanics_notes",
@@ -28,7 +28,7 @@
       "pages": [
         "SYNTHETIC UNVALIDATED FIXTURE: Gauss law and electrostatics.\nGauss law: integral E dot dA = Q_enclosed/epsilon0.\nThe surface integral is over a closed oriented surface.\nZero enclosed net charge gives zero net flux, not necessarily zero field.\nInferring a local field from Gauss law needs enough symmetry or more data.\nFor an ideal vacuum parallel-plate capacitor, C=epsilon0*A/d.\nAt fixed charge Q, U=Q^2/(2*C); at fixed voltage V, U=C*V^2/2.\n",
         "SYNTHETIC UNVALIDATED FIXTURE: source-free vacuum plane wave.\nAssume homogeneous vacuum, constant epsilon0,mu0 and real wavevector k.\nFor E=E0*cos(k dot r-omega*t), k dot E0=0 and B0=(k cross E0)/omega.\nThe dispersion relation is omega^2=c^2*|k|^2 with c=1/sqrt(epsilon0*mu0).\nThe amplitude magnitudes obey |B0|=|E0|/c.\nThe time-average Poynting flux is epsilon0*c*|E0|^2*k_hat/2.\nB is not H: H=B/mu0 in this vacuum convention.\n",
-        "SYNTHETIC UNVALIDATED FIXTURE: electrostatic Dirichlet slab.\nFor 0<x<L and constant epsilon>0, -phi''=rho(x)/epsilon.\nBoundary values are phi(0)=Va and phi(L)=Vb; rho is continuous.\nThe zero-boundary kernel is G(x,xi)=min(x,xi)*(L-max(x,xi))/L.\nG is continuous and G_x(xi+)-G_x(xi-)=-1.\nphi=Va*(1-x/L)+Vb*x/L+integral_0^L G(x,xi)*rho(xi)/epsilon dxi.\nFor constant rho0, the source term is rho0*x*(L-x)/(2*epsilon).\nThe field is E=-phi'; fixed Dirichlet values remove the homogeneous ambiguity.\n"
+        "SYNTHETIC UNVALIDATED FIXTURE: electrostatic Dirichlet slab.\nAssume planar symmetry, L>0, homogeneous constant epsilon>0, and rho in C([0,L]).\nFor 0<x<L, -phi''=rho(x)/epsilon.\nBoundary values are phi(0)=Va and phi(L)=Vb.\nSI rho is a volume charge density in C/m^3, not a line charge density.\nThe zero-boundary kernel is G(x,xi)=min(x,xi)*(L-max(x,xi))/L.\nG is continuous and G_x(xi+)-G_x(xi-)=-1.\nphi=Va*(1-x/L)+Vb*x/L+integral_0^L G(x,xi)*rho(xi)/epsilon dxi.\nFor constant rho0, the source term is rho0*x*(L-x)/(2*epsilon).\nThe field is E=-phi'; fixed Dirichlet values remove the homogeneous ambiguity.\n"
       ],
       "rights_status": "synthetic",
       "external_use_allowed": true,
@@ -1434,21 +1434,21 @@
       "topic": "Elektrostatik: Poissonproblem mit inhomogenen Dirichletwerten",
       "difficulty": "advanced",
       "mode": "DEEP_PHYSICS_MODE",
-      "question": "Bestimme auf 0<x<L bei konstantem epsilon>0 aus -phi''=rho(x)/epsilon die Potentialdarstellung für stetiges rho mit phi(0)=Va und phi(L)=Vb. Konstruiere den Greenkern samt Sprungbedingung, ergänze die inhomogenen Randwerte, begründe Eindeutigkeit und prüfe den Fall rho=rho0 sowie Einheiten.",
+      "question": "Bei planarer Symmetrie, L>0 und homogener konstanter Permittivität epsilon>0 sei rho eine auf [0,L] stetige Volumenladungsdichte. Bestimme auf 0<x<L aus -phi''=rho(x)/epsilon die Potentialdarstellung mit phi(0)=Va und phi(L)=Vb. Konstruiere den Greenkern samt Sprungbedingung, ergänze die inhomogenen Randwerte, begründe Existenz und Eindeutigkeit der klassischen Lösung und prüfe den Fall rho=rho0 sowie Einheiten.",
       "prerequisites": [
-        "Eindimensionale Poissongleichung und E=-phi'",
+        "Planarsymmetrische Poissongleichung bei homogener Permittivität und E=-phi'",
         "Greenfunktion und Delta-Distribution",
         "Lineare homogene Lösungen",
         "Dirichlet-Randwertproblem"
       ],
-      "reference_solution": "UNVALIDIERTER Referenzkandidat: Der Nullrandkern ist G=x_<*(L-x_>)/L. Er ist stetig, verschwindet bei x=0,L und hat G_x-Sprung -1; folglich -d_x²G=delta(x-xi). Die Lösung lautet phi(x)=Va*(1-x/L)+Vb*x/L+(1/epsilon)*integral_0^L G(x,xi)*rho(xi)dxi. Die lineare homogene Ergänzung trägt die Randwerte; nur das Integral hätte beide Nullränder. Bei stetigem rho existiert damit eine klassische C²-Lösung. Eine Differenz zweier Lösungen ist linear mit Nullrändern und somit null; der Dirichletoperator hat keine nichttriviale homogene Nullmode. Für rho=rho0 wird phi=Va*(1-x/L)+Vb*x/L+rho0*x*(L-x)/(2epsilon), E=(Va-Vb)/L-rho0*(L-2x)/(2epsilon). In SI sind phi in V, epsilon in F/m, rho in C/m³ und G in m, sodass rho/epsilon die Einheit V/m² besitzt. Andere Randbedingungen sind ein anderes Inversionsproblem.",
+      "reference_solution": "UNVALIDIERTER Referenzkandidat: Es gelten planare Symmetrie, L>0, konstantes epsilon>0 und rho in C([0,L]); gesucht ist phi in C²([0,L]). Der Nullrandkern ist G=x_<*(L-x_>)/L. Er ist stetig, verschwindet bei x=0,L und hat G_x-Sprung -1; folglich -d_x²G=delta(x-xi). Die Lösung lautet phi(x)=Va*(1-x/L)+Vb*x/L+(1/epsilon)*integral_0^L G(x,xi)*rho(xi)dxi. Die lineare homogene Ergänzung trägt die Randwerte; nur das Integral hätte beide Nullränder. Bei rho in C([0,L]) existiert damit eine klassische C²-Lösung. Eine Differenz zweier Lösungen ist linear mit Nullrändern und somit null; der Dirichletoperator hat keine nichttriviale homogene Nullmode. Für rho=rho0 wird phi=Va*(1-x/L)+Vb*x/L+rho0*x*(L-x)/(2epsilon), E=(Va-Vb)/L-rho0*(L-2x)/(2epsilon). In SI sind phi in V, epsilon in F/m, rho in C/m³ und G in m, sodass rho/epsilon die Einheit V/m² besitzt. Andere Randbedingungen sind ein anderes Inversionsproblem.",
       "criteria": [
         "Die Potentialdarstellung berücksichtigt beide nichtnulligen Randwerte.",
         "Sprung, Delta-Vorzeichen, konstanter Ladungstest und E-Feld stimmen überein.",
         "Die Eindeutigkeit wird am konkreten Dirichletproblem begründet."
       ],
       "mandatory_steps": [
-        "Poissonoperator, konstantes epsilon, L>0 und reguläres rho festlegen.",
+        "Planare Symmetrie, Poissonoperator, konstantes epsilon>0, L>0 und rho in C([0,L]) festlegen.",
         "Beide linearen Kernzweige außerhalb x=xi herleiten.",
         "Nullränder, Stetigkeit und -Sprung(G_x)=1 anwenden.",
         "Delta-Eigenschaft und Integralanteil begründen.",
@@ -1479,7 +1479,7 @@
         "status": "unvalidated",
         "reviewer": null,
         "reviewed_at": null,
-        "notes": "Unvalidated advanced candidate; independent mathematical and physical review required. No gold-standard or empirical model-quality status."
+        "notes": "Unvalidated advanced candidate. Patch 1.1.1 clarifies geometry and regularity after AI-assisted review; symbolic checks are separate from independent human mathematical/physical validation. No gold-standard or empirical model-quality status."
       },
       "retrieval_query": "electrostatic Dirichlet slab",
       "math_checks": []

@@ -113,13 +113,27 @@ Die kleinen Test-PDFs entstehen deterministisch im Test, einschließlich bekannt
 Seiten, Aufgabenüberschriften und Formelwarnungen. Test-Doubles ersetzen externe
 Analyzer. Tests gegen diese Fixtures belegen keine allgemeine OCR-/KI-Qualität.
 Die [Backend-CI](../.github/workflows/backend.yml) führt dieselben Prüfungen mit
-PostgreSQL aus; ihr tatsächlicher Remote-Lauf wurde hier nicht ausgelöst.
+PostgreSQL sowie die Offline-Green-Referenzchecks aus. Der erste Remote-Lauf des
+Commits 082596b scheiterte an einer isolierten SymPy-Rechnung. Die bisherige
+Deadline zählte Kaltstart und Rechnung gemeinsam. Start und Berechnung haben jetzt
+getrennte, weiterhin begrenzte Deadlines; siehe [PHYSICS_TUTOR](PHYSICS_TUTOR.md).
 
 Außerdem nach Änderungen `git diff --check` ausführen und Dokumentlinks prüfen.
 Die vollständige Study-UI, produktives Hosting und ein realer wissenschaftlicher
 Evaluationsdatensatz sind keine bereits bestandenen Prüfziele dieses Prototyps.
 
 ## Nachgewiesener lokaler Prüfstand
+
+Am 22. November 2026 bestanden nach der begrenzten Startup-/Compute-Trennung
+**435 Tests** gegen PostgreSQL, ohne Fehler oder Skips, in 65 Sekunden.
+Ruff und Formatprüfung bestanden; die bekannte Starlette/httpx-Warnung bleibt.
+Zusätzlich bestanden 20 Offline-Green-Referenzchecks sowie beide Mock-Promptpaare
+(isoliert und End-to-end) für den präzisierten Datensatz 1.1.1 mit gleichen
+Kontext-Hashes innerhalb jedes Paars. Die ursprünglichen 24 Fälle und ihre
+Quellenseiten bleiben per Regressionstest erhalten. Ablauf und Grenzen:
+[GREEN_PILOT](GREEN_PILOT.md). Reale Modellaufrufe: 0; sicherer API-Schlüssel und
+unabhängige menschliche Fachabnahme stehen aus. Diese lokale Abnahme ersetzt
+keine gemessene fachliche Modellqualität; den Remote-Stand zeigen die PR-Checks.
 
 Am 19. November 2026 bestanden nach den Responses-, Evaluations- und Adaptive-
 Erweiterungen **409 Tests**, ohne Fehler oder Skips. Ruff, Formatprüfung,

@@ -9,6 +9,7 @@ import copy
 import hashlib
 import json
 from io import BytesIO
+from pathlib import Path
 from uuid import uuid4
 
 import pytest
@@ -136,6 +137,21 @@ def test_manifest_has_all_categories_without_implicit_expert_gold(dataset):
         for expected in case.expected_sources:
             assert expected.source_id in case.source_ids
             assert expected.quote in sources[expected.source_id].pages[expected.page_number - 1]
+
+
+def test_adaptive_patch_preserves_baseline_cases_and_original_source_pages(dataset):
+    path = (
+        Path(__file__).resolve().parents[1] / "app/modules/evaluation/data/physics_adaptive_v1.json"
+    )
+    adaptive = load_dataset(path)
+    assert adaptive.version == "1.1.1"
+    assert len(adaptive.cases) == 29
+    assert adaptive.cases[: len(dataset.cases)] == dataset.cases
+    sources = {source.id: source for source in adaptive.sources}
+    for original in dataset.sources:
+        assert sources[original.id].pages[: len(original.pages)] == original.pages
+    assert all(case.validation.status == "unvalidated" for case in adaptive.cases)
+    assert all(source.physical_review.status == "unvalidated" for source in adaptive.sources)
 
 
 def test_manifest_fingerprint_is_deterministic_and_tracks_content(dataset, tmp_path):

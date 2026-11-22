@@ -13,6 +13,7 @@ import math
 import multiprocessing
 import re
 from decimal import Decimal
+from time import monotonic
 from typing import Literal, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -25,6 +26,33 @@ Assumption = Literal["real", "positive", "nonnegative", "nonzero"]
 _FUNCTIONS = frozenset({"sin", "cos", "exp", "log", "sqrt"})
 _CONSTANTS = frozenset({"pi", "E"})
 _NAME = re.compile(r"[A-Za-z][A-Za-z0-9]{0,15}\Z")
+_WORKER_PROTOCOL = "physics-sympy-worker.v1"
+
+
+def _worker_message(request: MathCheckRequest | MathCheckResult, event: str, result=None) -> dict:
+    message = {
+        "protocol": _WORKER_PROTOCOL,
+        "request_id": request.id,
+        "operation": request.operation,
+        "event": event,
+    }
+    if result is not None:
+        message["result"] = result
+    return message
+
+
+def _valid_worker_message(message, request: MathCheckRequest, event: str) -> bool:
+    keys = {"protocol", "request_id", "operation", "event"}
+    if event in {"result", "startup_result"}:
+        keys.add("result")
+    return (
+        isinstance(message, dict)
+        and set(message) == keys
+        and message.get("protocol") == _WORKER_PROTOCOL
+        and message.get("request_id") == request.id
+        and message.get("operation") == request.operation
+        and message.get("event") == event
+    )
 
 
 def _integer_literal(node: ast.AST) -> int | None:
@@ -177,12 +205,41 @@ class MathTool(Protocol):
 
 
 class SympyMathTool:
-    """Run one limited calculation per child with a hard wall-clock deadline."""
+    """Bound cold startup separately; computation still has a maximum of two seconds."""
 
-    def __init__(self, *, timeout_seconds: float = 2.0):
+    def __init__(self, *, timeout_seconds: float = 2.0, startup_timeout_seconds: float = 5.0):
         if not math.isfinite(timeout_seconds) or not 0 < timeout_seconds <= 2:
             raise ValueError("The calculation timeout must be positive and at most two seconds.")
+        if not math.isfinite(startup_timeout_seconds) or not 0 < startup_timeout_seconds <= 5:
+            raise ValueError(
+                "The worker startup timeout must be positive and at most five seconds."
+            )
         self.timeout_seconds = timeout_seconds
+        self.startup_timeout_seconds = startup_timeout_seconds
+
+    @staticmethod
+    def _inconclusive(request, details):
+        return MathCheckResult(
+            id=request.id,
+            operation=request.operation,
+            status="inconclusive",
+            details=details,
+            method="sympy_isolated",
+        )
+
+    @staticmethod
+    def _result(message, request, event):
+        if not _valid_worker_message(message, request, event):
+            return None
+        try:
+            result = MathCheckResult.model_validate(message["result"])
+        except (ValueError, TypeError):
+            return None
+        if result.id != request.id or result.operation != request.operation:
+            return None
+        if event == "startup_result" and result.status not in {"failed", "unavailable"}:
+            return None
+        return result
 
     def check(self, request: MathCheckRequest) -> MathCheckResult:
         # Validate again if an internal adapter used model_construct/model_copy.
@@ -196,28 +253,55 @@ class SympyMathTool:
                 method="sympy_unavailable",
             )
         context = multiprocessing.get_context("spawn")
-        reader, writer = context.Pipe(duplex=False)
-        process = context.Process(target=_worker, args=(request.model_dump(), writer), daemon=True)
+        parent, child = context.Pipe(duplex=True)
+        # The CPU backstop covers both bounded phases; the compute wall deadline
+        # remains independent of how much startup/import CPU was consumed.
+        cpu_seconds = math.ceil(self.startup_timeout_seconds + self.timeout_seconds) + 1
+        process = context.Process(
+            target=_worker,
+            args=(request.model_dump(), child, cpu_seconds),
+            daemon=True,
+        )
+        phase = "startup"
         try:
+            startup_deadline = monotonic() + self.startup_timeout_seconds
             process.start()
-            writer.close()
-            if reader.poll(self.timeout_seconds):
-                try:
-                    payload = reader.recv()
-                except EOFError:
-                    payload = None
-                if payload is not None:
-                    return MathCheckResult.model_validate(payload)
-            return MathCheckResult(
-                id=request.id,
-                operation=request.operation,
-                status="inconclusive",
-                details="The isolated calculation did not complete within its resource/time budget.",
-                method="sympy_isolated",
+            child.close()
+            remaining = startup_deadline - monotonic()
+            if remaining <= 0 or not parent.poll(remaining) or monotonic() > startup_deadline:
+                return self._inconclusive(
+                    request, "The isolated worker did not become ready within its startup budget."
+                )
+            message = parent.recv()
+            if _valid_worker_message(message, request, "startup_result"):
+                result = self._result(message, request, "startup_result")
+                if result is not None:
+                    return result
+            if not _valid_worker_message(message, request, "ready"):
+                return self._inconclusive(
+                    request, "The isolated worker startup protocol was invalid."
+                )
+            # A loaded worker cannot calculate before this acknowledgement. Cold
+            # Python/SymPy import time therefore never consumes the compute budget.
+            phase = "compute"
+            compute_deadline = monotonic() + self.timeout_seconds
+            parent.send(_worker_message(request, "compute"))
+            remaining = compute_deadline - monotonic()
+            if remaining <= 0 or not parent.poll(remaining) or monotonic() > compute_deadline:
+                return self._inconclusive(
+                    request, "The isolated calculation did not complete within its compute budget."
+                )
+            result = self._result(parent.recv(), request, "result")
+            return result or self._inconclusive(
+                request, "The isolated calculation returned an invalid result protocol."
+            )
+        except (EOFError, OSError):
+            return self._inconclusive(
+                request, f"The isolated worker exited during its bounded {phase} protocol."
             )
         finally:
-            reader.close()
-            writer.close()
+            parent.close()
+            child.close()
             if process.pid is not None:
                 if process.is_alive():
                     process.terminate()
@@ -225,18 +309,20 @@ class SympyMathTool:
                 if process.is_alive():
                     process.kill()
                     process.join(timeout=0.5)
-                process.close()
+                if not process.is_alive():
+                    process.close()
 
 
-def _worker(payload: dict, connection) -> None:
+def _worker(payload: dict, connection, cpu_seconds: int) -> None:
     """No dynamic Python evaluation; only this fixed interpreter runs in the child."""
     try:
         import resource
 
-        resource.setrlimit(resource.RLIMIT_CPU, (3, 3))
+        resource.setrlimit(resource.RLIMIT_CPU, (cpu_seconds, cpu_seconds))
         resource.setrlimit(resource.RLIMIT_AS, (384 * 1024 * 1024, 384 * 1024 * 1024))
     except (ImportError, ValueError, OSError):
         pass  # The parent wall-clock deadline remains active on other platforms.
+    event = "startup_result"
     try:
         request = MathCheckRequest.model_validate(payload)
         try:
@@ -250,6 +336,14 @@ def _worker(payload: dict, connection) -> None:
                 method="sympy_unavailable",
             )
         else:
+            connection.send(_worker_message(request, "ready"))
+            # The parent tears this child down if it cannot acknowledge readiness;
+            # no calculation runs until the complete compute command is checked.
+            command = connection.recv()
+            if not _valid_worker_message(command, request, "compute"):
+                connection.close()
+                return
+            event = "result"
             response = _compute(request, sp)
     except Exception:
         # Never send internal tracebacks, arbitrary exception text, or source code.
@@ -261,7 +355,9 @@ def _worker(payload: dict, connection) -> None:
             method="sympy_isolated",
         )
     try:
-        connection.send(response.model_dump())
+        connection.send(_worker_message(response, event, response.model_dump()))
+    except (EOFError, OSError):
+        pass  # Parent deadlines can close the pipe while the child is exiting.
     finally:
         connection.close()
 

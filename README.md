@@ -25,6 +25,7 @@ seine fachliche Qualität wurde noch nicht mit einem realen Modell evaluiert.
 - [Fachliche Tutor-Evaluation und Referenzaufgaben](docs/TUTOR_EVALUATION.md)
 - [Sichere reale Modellanbindung und Evaluations-CLI](docs/REAL_MODEL_EVALUATION.md)
 - [Adaptive Erklärungstiefe und kontrollierter Promptvergleich](docs/ADAPTIVE_DEEP_PHYSICS.md)
+- [Begrenzter Green-Pilot und Referenzprüfung](docs/GREEN_PILOT.md)
 - [Versionierte Evaluationsfälle und Prüfstatus](docs/EVALUATION_CASES.md)
 - [Hybride wissenschaftliche Quellenverwaltung](docs/SOURCE_MANAGEMENT.md)
 - [Testvertrag für Quellensteuerung und Belege](docs/SOURCE_MANAGEMENT_TESTS.md)

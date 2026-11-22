@@ -99,7 +99,7 @@ Der Standarddatensatz
 Klausuraufgaben, Gültigkeitsgrenzen, Quellenarbeit und sokratischen Interaktionen.
 Die separat auswählbare Erweiterung
 [physics_adaptive_v1.json](../apps/api/app/modules/evaluation/data/physics_adaptive_v1.json)
-enthält 29 Fälle, Version `1.1.0`, darunter fünf zusätzliche Deep-Physics-Fragen.
+enthält 29 Fälle, Version `1.1.1`, darunter fünf zusätzliche Deep-Physics-Fragen.
 Sie wird in [ADAPTIVE_DEEP_PHYSICS](ADAPTIVE_DEEP_PHYSICS.md) beschrieben;
 der bisherige Bestand bleibt erhalten. Die Datasetkennung lautet für beide
 `physics-tutor-candidates`; Version und Hash unterscheiden die Stände.
